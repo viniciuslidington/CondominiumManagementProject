@@ -1,0 +1,39 @@
+{
+    "dados": {
+        "condominio": {
+            "endereco": "Rua das Palmeiras, 123",
+            "nome": "Residencial Alpha",
+            "unidades": [
+                {
+                    "morador": {
+                        "cpf": "123.456.789-00",
+                        "nome": "João Silva",
+                        "pagamento_em_dia": true
+                    },
+                    "numero": 101,
+                    "ocupado": true
+                }
+            ]
+        },
+        "usuarios": [
+            {
+                "email": "joao.silva@email.com",
+                "nome": "João Silva",
+                "senha": "senha123",
+                "tipo": "morador"
+            },
+            {
+                "email": "admin@condominio.com",
+                "nome": "Administrador",
+                "senha": "admin123",
+                "tipo": "gestor"
+            },
+            {
+                "email": "mpedrosa.melo@gmail.com",
+                "nome": "Marcelo Melo",
+                "senha": "240631",
+                "tipo": "morador"
+            }
+        ]
+    }
+}
