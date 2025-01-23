@@ -8,8 +8,14 @@
 using namespace std;
 
 class Resident : public User {
+private:
+bool pagamento_em_dia;
+
 public:
-    Resident(const string& name, const string& email, const string& type, const string& senha, const int& cpf)
-        : User(name, email, type, senha, cpf) {}
+    Resident(const string& name, const string& email, const string& type, 
+    const string& senha, const long& cpf, bool& pagamento)
+        : User(name, email, type, senha, cpf) {
+            pagamento_em_dia = pagamento;
+        }
 };
 #endif 

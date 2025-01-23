@@ -14,10 +14,10 @@ protected:
     string user_email;
     string user_type;
     string user_password;
-    int user_cpf;
+    long user_cpf;
 
 public:
-    User(const string& name, const string& email, const string& type, const string& password, const int& cpf)
+    User(const string& name, const string& email, const string& type, const string& password, const long& cpf)
         : user_name(name), user_email(email), user_type(type), user_password(password), user_cpf(cpf){};
 
 
@@ -25,13 +25,13 @@ public:
     const string& getEmail() const { return user_email; }
     const string& getType() const { return user_type; }
     const string& getPassword() const { return user_password; }
-    const int& getCpf() const { return user_cpf; }
+    const long& getCpf() const { return user_cpf; }
 
     void setName(const string& name) { user_name = name; }
     void setEmail(const string& email) { user_email = email; }
     void setType(const string& type) { user_type = type; }
     void setPassword(const string& password) { user_password = password; }
-    void setCpf(const int& cpf) { user_cpf = cpf; }
+    void setCpf(const long& cpf) { user_cpf = cpf; }
 
 };
 #endif 

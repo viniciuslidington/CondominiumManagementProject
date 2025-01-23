@@ -9,14 +9,15 @@ using namespace std;
 
 class Manager : public User {
 public:
-    Manager(const string& name, const string& email, const string& type, const string& senha, const int& cpf)
+    Manager(const string& name, const string& email, const string& type, const string& senha, const long& cpf)
         : User(name, email, type, senha, cpf) {}
 
     //Aplicar função de cadastrar novo usuario
     void adicionarUsuario(){
 
         string email, senha, nome;
-        int unidade, cpf;
+        int unidade;
+        long cpf;
 
         ifstream arquivoEntrada("dados.json");
         if (!arquivoEntrada.is_open()) {
@@ -36,9 +37,9 @@ public:
         std::cin >> senha;
         std::cout << "Digite o nome do novo usuário: ";
         std::cin.ignore();  // Para limpar o buffer de entrada
-        std::getline(std::cin, nome);
+        std::getline(cin, nome);
         std::cout << "Digite o cpf do novo usuario ";
-        std::cin >> unidade;
+        std::cin >> cpf;
         std::cout << "Digite o numero da unidade ";
         std::cin >> unidade;
 
@@ -82,7 +83,6 @@ public:
         arquivoSaida << dados.dump(4); // Escrever no arquivo com formatação legível
         arquivoSaida.close();
     }
-
 
 };
 
