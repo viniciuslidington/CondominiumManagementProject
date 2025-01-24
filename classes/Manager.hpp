@@ -5,13 +5,27 @@
 #include <string>
 #include <iostream>
 #include "../main.hpp"
+#include "BancoJson.hpp"
 using namespace std;
 
 class Manager : public User {
 public:
     Manager(const string& name, const string& email, const string& phone, const string& type, const string& senha, const long& cpf)
         : User(name, email, phone, type, senha, cpf) {}
+    //Funcao para manipular o arquivo JSON (Tem que adicionar no arquivo BancoJson.hpp)    
+    void carregarDados(){
+        BancoJson banco;
+        json dados = banco.abrirJson("dados.json");
+        if (dados == nullptr) {
+            cerr << "Erro ao carregar os dados do arquivo JSON." << endl;
+            return;
 
+        // Agora você pode manipular o JSON carregado
+        cout << "Arquivo carregado com sucesso!" << endl;
+        cout << "Nome do condomínio: " << dados["dados"]["condominio"]["nome"] << endl;
+
+        }
+    }
     //Aplicar função de cadastrar novo usuario (Morador)
     void adicionarUsuarioMorador(){
 
@@ -19,17 +33,7 @@ public:
         int unidade;
         long cpf;
 
-        ifstream arquivoEntrada("dados.json");
-        if (!arquivoEntrada.is_open()) {
-            cerr << "Erro ao abrir o arquivo dados.json" << std::endl;
-            return;
-        }
-
-        // Carregar o conteúdo do arquivo em um objeto JSON
-        json dados;
-        arquivoEntrada >> dados;
-        arquivoEntrada.close();
-        
+        carregarDados();
 
         std::cout << "Digite o email do novo usuário: ";
         std::cin >> email;
