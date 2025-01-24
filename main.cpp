@@ -8,9 +8,9 @@ using json = nlohmann::json;
 
 int main() {
     // Instanciando um Manager
-    Manager vinicius("vinicius", "blabla@gmail.com", "manager", "coelhinho123", 22233344455);
+    Manager vinicius("vinicius", "blabla@gmail.com", "81997654232", "manager", "coelhinho123", 22233344455);
 
     //Adicionando um usuario
-    vinicius.adicionarUsuario();
+    vinicius.adicionarUsuarioMorador();
    
 }

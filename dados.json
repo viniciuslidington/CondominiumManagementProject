@@ -4,6 +4,38 @@
             "endereco": "Rua das Palmeiras, 123",
             "nome": "Residencial Alpha"
         },
+        "funcionarios": [
+            {
+                "cod_funcionario": 1,
+                "funcao": "porteiro",
+                "nome": "Fulano",
+                "turno": "manhã"
+            },
+            {
+                "cod_funcionario": 2,
+                "funcao": "zelador",
+                "nome": "Ciclano",
+                "turno": "tarde"
+            },
+            {
+                "cod_funcionario": 3,
+                "funcao": "porteiro",
+                "nome": "Beltrano",
+                "turno": "noite"
+            },
+            {
+                "cod_funcionario": 4,
+                "funcao": "faxineira",
+                "nome": "Maria",
+                "turno": "manhã"
+            },
+            {
+                "cod_funcionario": 5,
+                "funcao": "jardineiro",
+                "nome": "José",
+                "turno": "tarde"
+            }
+        ],
         "unidades": [
             {
                 "morador_cpf": 1026642860,
@@ -11,9 +43,9 @@
                 "ocupado": true
             },
             {
-                "morador_cpf": -1084846992,
+                "morador_cpf": null,
                 "numero": 102,
-                "ocupado": true
+                "ocupado": false
             }
         ],
         "usuarios": [
@@ -38,38 +70,6 @@
                 "pagamento_em_dia": true,
                 "senha": "ola",
                 "tipo": "morador"
-            }
-        ],
-        "funcionarios": [
-            {
-                "nome": "Fulano",
-                "turno": "manhã",
-                "funcao": "porteiro",
-                "cod_funcionario": 1
-            },
-            {
-                "nome": "Ciclano",
-                "turno": "tarde",
-                "funcao": "zelador",
-                "cod_funcionario": 2
-            },
-            {
-                "nome": "Beltrano",
-                "turno": "noite",
-                "funcao": "porteiro",
-                "cod_funcionario": 3
-            },
-            {
-                "nome": "Maria",
-                "turno": "manhã",
-                "funcao": "faxineira",
-                "cod_funcionario": 4
-            },
-            {
-                "nome": "José",
-                "turno": "tarde",
-                "funcao": "jardineiro",
-                "cod_funcionario": 5
             }
         ]
     }

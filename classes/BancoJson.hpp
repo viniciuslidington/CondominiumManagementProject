@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "json.hpp" // Biblioteca JSON for Modern C++
+#include "../json.hpp" // Biblioteca JSON for Modern C++
 
 using json = nlohmann::json;
 using namespace std;
@@ -25,7 +25,7 @@ class BancoJson {
                 cerr << "Erro ao interpretar o arquivo JSON: " << e.what() << endl;
                 return nullptr; // Retorna se o erro for detectado
             }
-
+            arquivoEntrada.close();
             return dados;
         };   
         
