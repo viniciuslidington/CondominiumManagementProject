@@ -39,6 +39,38 @@
                 "senha": "ola",
                 "tipo": "morador"
             }
+        ],
+        "funcionarios": [
+            {
+                "nome": "Fulano",
+                "turno": "manhã",
+                "funcao": "porteiro",
+                "cod_funcionario": 1
+            },
+            {
+                "nome": "Ciclano",
+                "turno": "tarde",
+                "funcao": "zelador",
+                "cod_funcionario": 2
+            },
+            {
+                "nome": "Beltrano",
+                "turno": "noite",
+                "funcao": "porteiro",
+                "cod_funcionario": 3
+            },
+            {
+                "nome": "Maria",
+                "turno": "manhã",
+                "funcao": "faxineira",
+                "cod_funcionario": 4
+            },
+            {
+                "nome": "José",
+                "turno": "tarde",
+                "funcao": "jardineiro",
+                "cod_funcionario": 5
+            }
         ]
     }
 }
