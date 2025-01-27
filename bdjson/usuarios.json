@@ -6,14 +6,16 @@
             "nome": "João Silva",
             "pagamento_em_dia": true,
             "senha": "senha123",
-            "tipo": "morador"
+            "tipo": "morador",
+            "phone": "81999876251"
         },
         {
             "cpf": 12345678910,
             "email": "admin@condominio.com",
             "nome": "Administrador",
             "senha": "admin123",
-            "tipo": "gestor"
+            "tipo": "gestor",
+            "phone": "81999876251"
         },
         {
             "cpf": -1084846992,
@@ -21,7 +23,8 @@
             "nome": "Luiz Miguel",
             "pagamento_em_dia": true,
             "senha": "ola",
-            "tipo": "morador"
+            "tipo": "morador",
+            "phone": "81999876251"
         },
         {
             "cpf": 91108333404,
@@ -29,7 +32,8 @@
             "nome": "ebbers",
             "pagamento_em_dia": true,
             "senha": "1234",
-            "tipo": "morador"
+            "tipo": "morador",
+            "phone": "81999876251"
         },
         {
             "cpf": 10691310408,
@@ -37,7 +41,8 @@
             "nome": "Vinicius",
             "pagamento_em_dia": true,
             "senha": "perigo1111",
-            "tipo": "morador"
+            "tipo": "morador",
+            "phone": "81999876251"
         }
     ]
 }
