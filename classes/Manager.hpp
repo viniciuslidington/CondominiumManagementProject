@@ -3,10 +3,8 @@
 
 #include "User.hpp"
 #include <string>
-#include <iostream>
 #include <fstream>
-#include "json.hpp" // Biblioteca JSON
-using namespace std;
+#include "json.hpp" 
 using json = nlohmann::json;
 
 class Manager : public User {
