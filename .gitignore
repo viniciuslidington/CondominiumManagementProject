@@ -2,6 +2,17 @@
 .vscode/
 *.code-workspace
 
+# Arquivos executáveis no Unix/Linux
+*.elf      # Arquivos com extensão .elf
+*.bin      # Binários genéricos
+
+# Executáveis sem extensão
+a.out      # Arquivo padrão de saída em C/C++
+# Ignorar qualquer arquivo sem extensão que seja executável
+**/*       # Todos os arquivos
+!*.cpp     # Mas, não ignore arquivos de código C++ (ou .c, .h
+
+
 # Compilador gerado
 *.exe
 *.out
