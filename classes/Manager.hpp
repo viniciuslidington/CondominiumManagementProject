@@ -3,11 +3,10 @@
 
 #include "User.hpp"
 #include <string>
-#include <iostream>
 #include <fstream>
 #include "../json.hpp" 
 #include "funcoes_json.hpp"
-using namespace std;
+
 using json = nlohmann::json;
 
 class Manager : public User {

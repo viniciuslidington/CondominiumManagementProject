@@ -3,17 +3,24 @@
 
 #include "User.hpp"
 #include <string>
-#include <iostream>
 
 using namespace std;
 
 class Resident : public User {
+
 private:
-bool pagamento_em_dia;
+    bool pagamento_em_dia;
 
 public:
     Resident(const string& name, const string& email, const string& phone, const string& type, 
     const string& senha, const long& cpf, bool& pagamento);
+
+    void reservarAreaComum();
+    void verAvisos();
+    void feedback();
+    void verRegras();
+    void verFuncionarios();
+
 
 };
 #endif 
