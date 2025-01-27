@@ -6,37 +6,68 @@
 using namespace std;
 using json = nlohmann::json;
 
-
 unique_ptr<User> login() {
     string email, senha;
-    cout << "Digite seu email: ";
-    cin >> email;
-    cout << "Digite sua senha: ";
-    cin >> senha;
-        
     string caminhoUsuarios = "bdjson/usuarios.json";
     json usuariosJson = carregarArquivo(caminhoUsuarios);
-    
 
-    // Verificar usuário no JSON
-    for (const auto& usuario : usuariosJson["usuarios"]) {
-        if (usuario["email"] == email && usuario["senha"] == senha) {
-            string tipo = usuario["tipo"];
-            string nome = usuario["nome"];
-            string phone = usuario["phone"];
-            long cpf = usuario["cpf"];
+    int tentativas = 3; // Limite de tentativas de login
 
-            if (tipo == "manager") {
-                return make_unique<Manager>(nome, email, phone, tipo, senha, cpf);
-            } else if (tipo == "morador") {
-                bool pagamento = usuario["pagamento_em_dia"];
-                return make_unique<Resident>(nome, email, phone, tipo, senha, cpf, pagamento);
+    while (tentativas > 0) {
+        cout << "Digite 1 para login ou 2 para encerrar o programa: ";
+        int option;
+        cin >> option;
+
+        if (option == 2) {
+            return nullptr;
+        } else if (option != 1) {
+            cout << "Opção inválida. Tente novamente." << endl;
+            continue; // Volta ao início do loop
+        }
+
+        cout << "Digite seu email: ";
+        cin >> email;
+
+        bool emailEncontrado = false;
+        for (const auto& usuario : usuariosJson["usuarios"]) {
+            if (usuario["email"] == email) {
+                emailEncontrado = true;
+
+                cout << "Digite sua senha: ";
+                cin >> senha;
+
+                if (usuario["senha"] == senha) {
+                    string tipo = usuario["tipo"];
+                    string nome = usuario["nome"];
+                    string phone = usuario["phone"];
+                    long cpf = usuario["cpf"];
+
+                    if (tipo == "manager") {
+                        return make_unique<Manager>(nome, email, phone, tipo, senha, cpf);
+                    } else if (tipo == "morador") {
+                        bool pagamento = usuario["pagamento_em_dia"];
+                        return make_unique<Resident>(nome, email, phone, tipo, senha, cpf, pagamento);
+                    }
+                } else {
+                    cout << "Senha inválida. Tente novamente." << endl;
+                }
             }
+        }
+
+        if (!emailEncontrado) {
+            cout << "Email não encontrado. Tente novamente." << endl;
+        }
+
+        tentativas--; // Reduz uma tentativa
+        if (tentativas > 0) {
+            cout << "Você tem " << tentativas << " tentativas restantes." << endl;
+        } else {
+            cout << "Número máximo de tentativas alcançado. Encerrando o programa." << endl;
+            return nullptr;
         }
     }
 
-    cout << "Email ou senha inválidos." << endl;
-    return nullptr;
+    return nullptr; // Caso o loop seja encerrado sem sucesso
 }
 
 
