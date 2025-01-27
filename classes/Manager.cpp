@@ -141,21 +141,122 @@ void Manager::adicionarAvisos() {
 }
 
 void Manager::Rent() {
-    // Implementação futura
+    string caminhoAlugueis = "bdjson/alugueis.json";
+    json alugueisJson = carregarArquivo(caminhoAlugueis);
+
+    cout << "Digite o CPF do morador que está alugando: ";
+    long long cpfMorador;
+    cin >> cpfMorador;
+    cin.ignore();
+
+    cout << "Digite o código do apartamento alugado: ";
+    int codApartamento;
+    cin >> codApartamento;
+    cin.ignore();
+
+    cout << "Digite a data de início do aluguel (YYYY-MM-DD): ";
+    string dataInicio;
+    getline(cin, dataInicio);
+
+    cout << "Digite a data de término do aluguel (YYYY-MM-DD): ";
+    string dataFim;
+    getline(cin, dataFim);
+
+    json novoAluguel = {
+        {"cpf_morador", cpfMorador},
+        {"cod_apartamento", codApartamento},
+        {"data_inicio", dataInicio},
+        {"data_fim", dataFim}
+    };
+
+    alugueisJson["alugueis"].push_back(novoAluguel);
+    salvarArquivo(caminhoAlugueis, alugueisJson);
+
+    cout << "Aluguel registrado com sucesso!" << endl;
 }
 
 void Manager::ShowHistory() {
-    // Implementação futura
+    string caminhoHistorico = "bdjson/historico.json";
+    json historicoJson = carregarArquivo(caminhoHistorico);
+
+    cout << "Histórico de eventos do condomínio:" << endl;
+
+    for (const auto& evento : historicoJson["historico"]) {
+        cout << "Data: " << evento["data"] << ", Descrição: " << evento["descricao"] << endl;
+    }
 }
 
 void Manager::RegisterService() {
-    // Implementação futura
+    string caminhoServicos = "bdjson/servicos.json";
+    json servicosJson = carregarArquivo(caminhoServicos);
+
+    cout << "Digite o nome do serviço: ";
+    string nomeServico;
+    getline(cin, nomeServico);
+
+    cout << "Digite o nome da empresa fornecedora: ";
+    string empresa;
+    getline(cin, empresa);
+
+    cout << "Digite a data de início do serviço (YYYY-MM-DD): ";
+    string dataInicio;
+    getline(cin, dataInicio);
+
+    cout << "Digite a data de término do serviço (YYYY-MM-DD): ";
+    string dataFim;
+    getline(cin, dataFim);
+
+    json novoServico = {
+        {"nome", nomeServico},
+        {"empresa", empresa},
+        {"data_inicio", dataInicio},
+        {"data_fim", dataFim}
+    };
+
+    servicosJson["servicos"].push_back(novoServico);
+    salvarArquivo(caminhoServicos, servicosJson);
+
+    cout << "Serviço registrado com sucesso!" << endl;
 }
 
 void Manager::AddExpenses() {
-    // Implementação futura
+    string caminhoDespesas = "bdjson/despesas.json";
+    json despesasJson = carregarArquivo(caminhoDespesas);
+
+    cout << "Digite a descrição da despesa: ";
+    string descricao;
+    getline(cin, descricao);
+
+    cout << "Digite o valor da despesa: ";
+    double valor;
+    cin >> valor;
+    cin.ignore();
+
+    cout << "Digite a data da despesa (YYYY-MM-DD): ";
+    string data;
+    getline(cin, data);
+
+    json novaDespesa = {
+        {"descricao", descricao},
+        {"valor", valor},
+        {"data", data}
+    };
+
+    despesasJson["despesas"].push_back(novaDespesa);
+    salvarArquivo(caminhoDespesas, despesasJson);
+
+    cout << "Despesa adicionada com sucesso!" << endl;
 }
 
 void Manager::ShowExpenses() {
-    // Implementação futura
+    string caminhoDespesas = "bdjson/despesas.json";
+    json despesasJson = carregarArquivo(caminhoDespesas);
+
+    cout << "Lista de despesas:" << endl;
+
+    for (const auto& despesa : despesasJson["despesas"]) {
+        cout << "Descrição: " << despesa["descricao"]
+             << ", Valor: " << despesa["valor"]
+             << ", Data: " << despesa["data"] << endl;
+    }
 }
