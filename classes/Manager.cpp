@@ -7,7 +7,7 @@ void Manager::adicionarUsuarioMorador() {
    
     string caminhoUsuarios = "bdjson/usuarios.json";
 
-   json usuariosJson = carregarArquivo(caminhoUsuarios);
+    json usuariosJson = carregarArquivo(caminhoUsuarios);
 
         // Solicitar informações do novo usuário
     std::cout << "Digite o CPF: ";
@@ -66,61 +66,32 @@ void Manager::addNewWorker() {
     int cod_funcionario;
     char opcao;
 
-    ifstream arquivoEntrada("dados.json");
-    if (!arquivoEntrada.is_open()) {
-        cerr << "Erro ao abrir o arquivo dados.json" << endl;
-        return;
-    }
+    string caminhoCondominio = "bdjson/condominio.json";
 
-    json dados;
-    arquivoEntrada >> dados;
-    arquivoEntrada.close();
-
-    bool funcionarioValido;
-    do {
-        funcionarioValido = true;
-        cout << "Digite o codigo do funcionario que deseja adicionar: ";
-        cin >> cod_funcionario;
-
-        for (const auto& funcionarioObj : dados["dados"]["funcionarios"]) {
-            if (funcionarioObj["codigo"] == cod_funcionario) {
-                cout << "O codigo " << cod_funcionario << " já está em uso!" << endl;
-                cout << "Deseja tentar novamente? (S para Sim / N para Não): ";
-                cin >> opcao;
-
-                if (toupper(opcao) == 'N') {
-                    return;
-                } else {
-                    funcionarioValido = false;
-                    break;
-                }
-            }
-        }
-    } while (!funcionarioValido);
+    json condominioJson = carregarArquivo(caminhoCondominio);
 
     cin.ignore();
-    cout << "Digite o nome do funcionario: ";
+    cout << "Digite o cod funcionario: ";
+    cin >> cod_funcionario;
+    cin.ignore(); // Limpa o buffer
+    cout << "Digite a funcao do funcionario: ";
+    getline(cin, funcao);
+    cout << "Digite a nome do funcionario: ";
     getline(cin, nome);
     cout << "Digite o turno do funcionario: ";
     getline(cin, turno);
-    cout << "Digite a funcao do funcionario: ";
-    getline(cin, funcao);
+
 
     json novoFuncionario = {
-        {"codigo", cod_funcionario},
+        {"cod_funcionario", cod_funcionario},
+        {"funcao", funcao},
         {"nome", nome},
-        {"turno", turno},
-        {"funcao", funcao}
+        {"turno", turno}
     };
-    dados["dados"]["funcionarios"].push_back(novoFuncionario);
 
-    ofstream arquivoSaida("dados.json");
-    if (!arquivoSaida.is_open()) {
-        cerr << "Erro ao abrir o arquivo para salvar os dados." << endl;
-        return;
-    }
-    arquivoSaida << dados.dump(4);
-    arquivoSaida.close();
+    condominioJson["condominio"]["funcionarios"].push_back(novoFuncionario);
+
+    salvarArquivo(caminhoCondominio, condominioJson);
 
     cout << "Funcionario " << nome << " adicionado com sucesso!" << endl;
 }

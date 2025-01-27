@@ -7,10 +7,25 @@ using json = nlohmann::json;
 
 
 int main() {
-    // Instanciando um Manager
+
+    // Instanciando um Manage
+    
     Manager vinicius("vinicius", "blabla@gmail.com", "81997654232", "manager", "coelhinho123", 22233344455);
 
     //Adicionando um usuario
-    vinicius.adicionarUsuarioMorador();
-   
+    int choice;
+    cout << "Escolha uma opção:\n1. Adicionar Morador\n2. Adicionar Trabalhador\n";
+    cin >> choice;
+
+    switch (choice) {
+        case 1:
+            vinicius.adicionarUsuarioMorador();
+            break;
+        case 2:
+            vinicius.addNewWorker();
+            break;
+        default:
+            cout << "Opção inválida!" << endl;
+            break;
+}
 }

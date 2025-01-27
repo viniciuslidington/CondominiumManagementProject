@@ -1,48 +1,43 @@
 {
     "condominio": {
-            "endereco_predio": "Rua das Palmeiras, 123",
-            "nome_predio": "Residencial Alpha",
-            "gerente": {
-                "cpf": 12345678910,
-                "senha": "admin123"},
-            "funcionarios": [
-                {
-                    "cod_funcionario": 1,
-                    "funcao": "porteiro",
-                    "nome": "Fulano",
-                    "turno": "manhã"
-                },
-                {
-                    "cod_funcionario": 2,
-                    "funcao": "zelador",
-                    "nome": "Ciclano",
-                    "turno": "tarde"
-                },
-                {
-                    "cod_funcionario": 3,
-                    "funcao": "porteiro",
-                    "nome": "Beltrano",
-                    "turno": "noite"
-                }
-            ],
-            "regras_condominio": 
-            [
-                {
-                    "regra": "Não é permitido fazer barulho após as 22h."
-                },
-                {
-                    "regra": "Animais de estimação devem estar sempre acompanhados nas áreas comuns."
-                },
-                {
-                    "regra": "O uso da piscina é permitido apenas das 8h às 20h."
-                },
-                {
-                    "regra": "É proibido fumar nas áreas comuns do condomínio."
-                },
-                {
-                    "regra": "O lixo deve ser descartado nos locais apropriados."
-                }
-            ]
-            
-        }
+        "endereco_predio": "Rua das Palmeiras, 123",
+        "funcionarios": [
+            {
+                "cod_funcionario": 1,
+                "funcao": "porteiro",
+                "nome": "Fulano",
+                "turno": "manhã"
+            },
+            {
+                "cod_funcionario": 2,
+                "funcao": "zelador",
+                "nome": "Ciclano",
+                "turno": "tarde"
+            },
+            {
+                "cod_funcionario": 3,
+                "funcao": "porteiro",
+                "nome": "Beltrano",
+                "turno": "noite"
+            }
+        ],
+        "nome_predio": "Residencial Alpha",
+        "regras_condominio": [
+            {
+                "regra": "Não é permitido fazer barulho após as 22h."
+            },
+            {
+                "regra": "Animais de estimação devem estar sempre acompanhados nas áreas comuns."
+            },
+            {
+                "regra": "O uso da piscina é permitido apenas das 8h às 20h."
+            },
+            {
+                "regra": "É proibido fumar nas áreas comuns do condomínio."
+            },
+            {
+                "regra": "O lixo deve ser descartado nos locais apropriados."
+            }
+        ]
+    }
 }

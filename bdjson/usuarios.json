@@ -30,6 +30,14 @@
             "pagamento_em_dia": true,
             "senha": "1234",
             "tipo": "morador"
+        },
+        {
+            "cpf": 10691310408,
+            "email": "vlidington@gmail.com",
+            "nome": "Vinicius",
+            "pagamento_em_dia": true,
+            "senha": "perigo1111",
+            "tipo": "morador"
         }
     ]
 }
