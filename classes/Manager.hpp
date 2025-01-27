@@ -5,23 +5,13 @@
 #include <string>
 #include <iostream>
 #include "../main.hpp"
-#include "BancoJson.hpp"
 using namespace std;
 
 class Manager : public User {
 public:
     Manager(const string& name, const string& email, const string& phone, const string& type, const string& senha, const long& cpf)
         : User(name, email, phone, type, senha, cpf) {}
-    //Funcao para manipular o arquivo JSON (Tem que adicionar no arquivo BancoJson.hpp)    
-    json carregarDados(){
-        BancoJson banco;
-        json dados = banco.abrirJson("dados.json");
-        if (dados == nullptr) {
-            cerr << "Erro ao carregar os dados do arquivo JSON." << endl;
-            return dados;
-        }
-        return dados;
-    }
+    
     //Aplicar função de cadastrar novo usuario (Morador)
     void adicionarUsuarioMorador(){
 
