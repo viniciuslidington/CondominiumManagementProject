@@ -24,6 +24,25 @@
                     "nome": "Beltrano",
                     "turno": "noite"
                 }
+            ],
+            "regras_condominio": 
+            [
+                {
+                    "regra": "Não é permitido fazer barulho após as 22h."
+                },
+                {
+                    "regra": "Animais de estimação devem estar sempre acompanhados nas áreas comuns."
+                },
+                {
+                    "regra": "O uso da piscina é permitido apenas das 8h às 20h."
+                },
+                {
+                    "regra": "É proibido fumar nas áreas comuns do condomínio."
+                },
+                {
+                    "regra": "O lixo deve ser descartado nos locais apropriados."
+                }
             ]
+            
         }
 }
