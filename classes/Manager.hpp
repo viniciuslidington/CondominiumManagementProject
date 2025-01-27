@@ -5,7 +5,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "json.hpp" // Biblioteca JSON
+#include "../json.hpp" 
+#include "funcoes_json.hpp"
 using namespace std;
 using json = nlohmann::json;
 
