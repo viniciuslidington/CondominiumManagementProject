@@ -14,7 +14,7 @@ int main() {
 
     //Adicionando um usuario
     int choice;
-    cout << "Escolha uma opção:\n1. Adicionar Morador\n2. Adicionar Trabalhador\n";
+    cout << "Escolha uma opção:\n1. Adicionar Morador\n2. Adicionar Trabalhador\n3. Adicionar Aviso";
     cin >> choice;
 
     switch (choice) {
@@ -22,7 +22,10 @@ int main() {
             vinicius.adicionarUsuarioMorador();
             break;
         case 2:
-            vinicius.addNewWorker();
+            vinicius.adicionarNovoFuncionario();
+            break;
+        case 3:
+            vinicius.adicionarAvisos();
             break;
         default:
             cout << "Opção inválida!" << endl;

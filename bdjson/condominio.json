@@ -1,5 +1,22 @@
 {
     "condominio": {
+        "avisos": [
+            {
+                "aviso": "Manuntencao do elevador",
+                "data": "20/06/2025",
+                "observacao": ""
+            },
+            {
+                "aviso": "salao de festas interditado",
+                "data": "29/01/2025",
+                "observacoes": ""
+            },
+            {
+                "aviso": "adas",
+                "data": "asdasdas",
+                "observacoes": ""
+            }
+        ],
         "endereco_predio": "Rua das Palmeiras, 123",
         "funcionarios": [
             {

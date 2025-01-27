@@ -61,13 +61,11 @@ void Manager::adicionarUsuarioMorador() {
       
 }
 
-void Manager::addNewWorker() {
-    string nome, turno, funcao;
+void Manager::adicionarNovoFuncionario() {
+    string nome, turno, funcao, caminhoCondominio;
     int cod_funcionario;
-    char opcao;
 
-    string caminhoCondominio = "bdjson/condominio.json";
-
+    caminhoCondominio = "bdjson/condominio.json";
     json condominioJson = carregarArquivo(caminhoCondominio);
 
     cin.ignore();
@@ -96,8 +94,50 @@ void Manager::addNewWorker() {
     cout << "Funcionario " << nome << " adicionado com sucesso!" << endl;
 }
 
-void Manager::SendInformation(string type, string mensagem) {
-    cout << type << " : " << mensagem << endl;
+void Manager::adicionarAvisos() {
+    string aviso, data, obs, caminhoCondominio;
+    bool possuiData, possuiAviso;
+
+    caminhoCondominio = "bdjson/condominio.json";
+    json condominioJson = carregarArquivo(caminhoCondominio);
+
+    cin.ignore();
+    cout << "Digite o AVISO que deseja comunicar: ";
+    getline(cin, aviso);
+    cout << "O aviso possui uma data específica? (1 para Sim, 0 para Não): ";
+    cin >> possuiData;
+    cin.ignore(); // Limpa o buffer
+
+    if (possuiData) {
+        cout << "Digite a DATA que o evento acontecerá: ";
+        getline(cin, data);
+    } else {
+        data = "";
+    }
+
+    cout << "O aviso possui alguma Observção? (1 para Sim, 0 para Não) ";
+    cin >> possuiAviso;
+    cin.ignore();
+
+    if(possuiAviso) {
+        cout << "Digite a OBSERVAÇÃO do aviso: ";
+        getline(cin,obs);
+    } else {
+        obs = "";
+    }
+
+    json novoAviso = {
+        {"aviso", aviso},
+        {"data", data},
+        {"observacoes", obs}
+    };
+
+    condominioJson["condominio"]["avisos"].push_back(novoAviso);
+
+    salvarArquivo(caminhoCondominio, condominioJson);
+
+    cout << "Aviso adicionado com sucesso!" << endl;
+
 }
 
 void Manager::Rent() {
