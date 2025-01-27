@@ -1,4 +1,12 @@
 {
+    "alugueis": [
+        {
+            "area_reservada": "Salao de Festas",
+            "cpf_morador": 1026642860,
+            "data_inicio": "24-09-2025",
+            "numero_apt": 101
+        }
+    ],
     "condominio": {
         "avisos": [
             {
@@ -18,6 +26,7 @@
             }
         ],
         "endereco_predio": "Rua das Palmeiras, 123",
+        "espacos": [],
         "funcionarios": [
             {
                 "cod_funcionario": 1,

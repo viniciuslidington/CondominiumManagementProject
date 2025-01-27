@@ -141,32 +141,71 @@ void Manager::adicionarAvisos() {
 }
 
 void Manager::Rent() {
-    string caminhoAlugueis = "bdjson/alugueis.json";
-    json alugueisJson = carregarArquivo(caminhoAlugueis);
-
-    cout << "Digite o CPF do morador que está alugando: ";
+    string areaReservada, dataInicio, caminhoUsuarios, caminhoAlugueis;
+    json alugueisJson, usuariosJson;
+    int codigoArea, numero_apt;
+    bool cpfValido = false;
     long long cpfMorador;
+
+    caminhoUsuarios = "bdjson/unidades.json";
+    caminhoAlugueis = "bdjson/condominio.json";
+
+    alugueisJson = carregarArquivo(caminhoAlugueis);
+
+    cout << "Digite o CPF do morador que está reservando o espaço: ";
     cin >> cpfMorador;
     cin.ignore();
+    // Verificar se o CPF do morador existe no arquivo de usuários
+    usuariosJson = carregarArquivo(caminhoUsuarios);
 
-    cout << "Digite o código do apartamento alugado: ";
-    int codApartamento;
-    cin >> codApartamento;
+    for (const auto& usuario : usuariosJson["unidades"]) {
+        if (usuario["morador_cpf"] == cpfMorador) {
+            cpfValido = true;
+            numero_apt = usuario["numero"];
+            break;
+        }
+    }
+
+    if (!cpfValido) {
+        cout << "CPF não encontrado no sistema. Aluguel não registrado." << endl;
+        return;
+    }
+
+    cout << "Digite o código da área que deseja reservar:  \n";
+    cout << "1: Salao de Festas \n";
+    cout << "2: Churrasqueira \n";
+    cout << "3: Sauna \n";
+    cout << "4: Playgroud \n";
+
+    cin >> codigoArea;
     cin.ignore();
 
-    cout << "Digite a data de início do aluguel (YYYY-MM-DD): ";
-    string dataInicio;
-    getline(cin, dataInicio);
+    switch (codigoArea) {
+        case 1:
+            areaReservada = "Salao de Festas";
+            break;
+        case 2:
+            areaReservada = "Churrasqueira";
+            break;
+        case 3:
+            areaReservada = "Sauna";
+            break;
+        case 4:
+            areaReservada = "Playground";
+            break;
+        default:
+            cout << "Código de área inválido. Aluguel não registrado." << endl;
+            return;
+    }
 
-    cout << "Digite a data de término do aluguel (YYYY-MM-DD): ";
-    string dataFim;
-    getline(cin, dataFim);
+    cout << "Digite a data de início do aluguel (DD-MM-YYYY): \n";
+    getline(cin, dataInicio);
 
     json novoAluguel = {
         {"cpf_morador", cpfMorador},
-        {"cod_apartamento", codApartamento},
-        {"data_inicio", dataInicio},
-        {"data_fim", dataFim}
+        {"numero_apt", numero_apt},
+        {"area_reservada", areaReservada},
+        {"data_inicio", dataInicio}
     };
 
     alugueisJson["alugueis"].push_back(novoAluguel);
