@@ -13,9 +13,7 @@ bool pagamento_em_dia;
 
 public:
     Resident(const string& name, const string& email, const string& phone, const string& type, 
-    const string& senha, const long& cpf, bool& pagamento)
-        : User(name, email, phone, type, senha, cpf) {
-            pagamento_em_dia = pagamento;
-        }
+    const string& senha, const long& cpf, bool& pagamento);
+
 };
 #endif 
