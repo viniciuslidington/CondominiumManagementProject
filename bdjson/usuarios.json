@@ -1,0 +1,26 @@
+{
+    "usuarios": [
+            {
+                "cpf": 1026642860,
+                "email": "joao.silva@email.com",
+                "nome": "João Silva",
+                "senha": "senha123",
+                "tipo": "morador"
+            },
+            {
+                "cpf": 12345678910,
+                "email": "admin@condominio.com",
+                "nome": "Administrador",
+                "senha": "admin123",
+                "tipo": "gestor"
+            },
+            {
+                "cpf": -1084846992,
+                "email": "tecola@gmail.com",
+                "nome": "Luiz Miguel",
+                "pagamento_em_dia": true,
+                "senha": "ola",
+                "tipo": "morador"
+            }
+        ]
+}

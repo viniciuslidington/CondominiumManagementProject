@@ -1,0 +1,14 @@
+{
+    "unidades": [
+        {
+            "morador_cpf": 1026642860,
+            "numero": 101,
+            "ocupado": true
+        },
+        {
+            "morador_cpf": null,
+            "numero": 102,
+            "ocupado": false
+        }
+    ]
+}
