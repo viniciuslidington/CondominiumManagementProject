@@ -4,7 +4,9 @@
 #include "User.hpp"
 #include <string>
 #include <fstream>
-#include "json.hpp" 
+#include "../json.hpp" 
+#include "funcoes_json.hpp"
+
 using json = nlohmann::json;
 
 class Manager : public User {

@@ -4,70 +4,61 @@ Manager::Manager(const string& name, const string& email, const string& phone, c
     : User(name, email, phone, type, senha, cpf) {}
 
 void Manager::adicionarUsuarioMorador() {
-    string email, senha, nome, telefone;
-    int unidade;
-    long cpf;
+   
+    string caminhoUsuarios = "bdjson/usuarios.json";
 
-    ifstream arquivoEntrada("dados.json");
-    if (!arquivoEntrada.is_open()) {
-        cerr << "Erro ao abrir o arquivo dados.json" << endl;
-        return;
+   json usuariosJson = carregarArquivo(caminhoUsuarios);
+
+        // Solicitar informações do novo usuário
+    std::cout << "Digite o CPF: ";
+    long long cpf;
+    std::cin >> cpf;
+
+    std::cin.ignore(); // Limpa o buffer
+    std::cout << "Digite o email: ";
+    std::string email;
+    std::getline(std::cin, email);
+
+    std::cout << "Digite o nome: ";
+    std::string nome;
+    std::getline(std::cin, nome);
+
+    std::cout << "Digite a senha: ";
+    std::string senha;
+    std::getline(std::cin, senha);
+
+    std::cout << "Digite o tipo (morador/gestor): ";
+    std::string tipo;
+    std::getline(std::cin, tipo);
+
+    // Dados adicionais para moradores
+    bool pagamentoEmDia = false;
+    if (tipo == "morador") {
+        std::cout << "O pagamento está em dia? (1 para Sim, 0 para Não): ";
+        std::cin >> pagamentoEmDia;
     }
 
-    json dados;
-    arquivoEntrada >> dados;
-    arquivoEntrada.close();
+    // Criar novo usuário
+    json novoUsuario = {
+        {"cpf", cpf},
+        {"email", email},
+        {"nome", nome},
+        {"senha", senha},
+        {"tipo", tipo}
+    };
 
-    cout << "Digite o email do novo usuário: ";
-    cin >> email;
-    cout << "Digite a senha do novo usuário: ";
-    cin >> senha;
-    cout << "Digite o nome do novo usuário: ";
-    cin.ignore();
-    getline(cin, nome);
-    cout << "Digite o cpf do novo usuario, somente os numeros: ";
-    cin >> cpf;
-    cout << "Digite o telefone do novo usuario: ";
-    cin >> telefone;
-    cout << "Digite o numero do apartamento: ";
-    cin >> unidade;
-
-    for (auto& unidadeObj : dados["dados"]["unidades"]) {
-        if (unidadeObj["numero"] == unidade) {
-            if (unidadeObj["ocupado"]) {
-                cout << "A unidade " << unidade << " já está ocupada!" << endl;
-                cout << "Por favor, escolha outra unidade ou tente novamente mais tarde." << endl;
-                return;
-            }
-
-            unidadeObj["ocupado"] = true;
-            unidadeObj["morador_cpf"] = cpf;
-
-            json novoUsuario = {
-                {"cpf", cpf},
-                {"email", email},
-                {"nome", nome},
-                {"senha", senha},
-                {"tipo", "Morador"},
-                {"pagamento_em_dia", true},
-                {"telefone", telefone}
-            };
-            dados["dados"]["usuarios"].push_back(novoUsuario);
-
-            cout << "Usuario " << nome << " adicionado com sucesso à unidade " << unidade << "!" << endl;
-
-            ofstream arquivoSaida("dados.json");
-            if (!arquivoSaida.is_open()) {
-                cerr << "Erro ao abrir o arquivo para salvar os dados." << endl;
-                return;
-            }
-            arquivoSaida << dados.dump(4);
-            arquivoSaida.close();
-            return;
-        }
+    if (tipo == "morador") {
+        novoUsuario["pagamento_em_dia"] = pagamentoEmDia;
     }
 
-    cout << "Unidade " << unidade << " nao encontrada!" << endl;
+    // Adicionar ao JSON
+    usuariosJson["usuarios"].push_back(novoUsuario);
+
+    // Salvar as alterações no arquivo
+    salvarArquivo(caminhoUsuarios, usuariosJson);
+
+    std::cout << "Usuário adicionado com sucesso!" << std::endl;
+      
 }
 
 void Manager::addNewWorker() {
