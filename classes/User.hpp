@@ -35,6 +35,7 @@ public:
     void setType(const string& type) { user_type = type; }
     void setPassword(const string& password) { user_password = password; }
     void setCpf(const long& cpf) { user_cpf = cpf; }
+    virtual void exibirInformacoes() const;
 
 };
-#endif 
+#endif
