@@ -3,6 +3,7 @@
 Manager::Manager(const string& name, const string& email, const string& phone, const string& type, const string& senha, const long& cpf)
     : User(name, email, phone, type, senha, cpf) {}
 
+
 void Manager::adicionarUsuarioMorador() {
     string caminhoUsuarios = "bdjson/usuarios.json"; // Caminho do arquivo
     json usuariosJson = carregarArquivo(caminhoUsuarios); // Carregando o arquivo dos usuários
