@@ -1,32 +1,59 @@
-# Prerequisites
-*.d
+# Arquivos gerados pelo VS Code
+.vscode/
+*.code-workspace
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
+# Arquivos executáveis no Unix/Linux
+*.elf      # Arquivos com extensão .elf
+*.bin      # Binários genéricos
+
+# Executáveis sem extensão
+a.out      # Arquivo padrão de saída em C/C++
+# Ignorar qualquer arquivo sem extensão que seja executável
+**/*       # Todos os arquivos
+!*.cpp     # Mas, não ignore arquivos de código C++ (ou .c, .h
+
+
+# Compilador gerado
+*.exe
+*.out
 *.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
+*.o
 *.so
-*.dylib
 *.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
+*.dylib
 *.a
 *.lib
 
-# Executables
-*.exe
-*.out
-*.app
+# Diretórios de build e binários
+build/
+bin/
+dist/
+Debug/
+Release/
+
+# Arquivos temporários
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Arquivos de cache e intermediários
+*.gch
+*.pch
+*.dSYM/
+*.ipch/
+*.res
+*.aps
+
+# Configuração de Debugger
+launch.json
+tasks.json
+
+# Outros backups ou temporários
+*.bak
+*.old
+*~
+
+# Sistema operacional
+.DS_Store           # macOS
+Thumbs.db           # Windows
