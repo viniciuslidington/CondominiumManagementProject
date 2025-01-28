@@ -6,14 +6,13 @@
 using namespace std;
 using json = nlohmann::json;
 
+//Login (Loop para verificar login e acessar funcoes das respectivas classes)
 unique_ptr<User> login() {
     string email, senha;
     string caminhoUsuarios = "bdjson/usuarios.json";
     json usuariosJson = carregarArquivo(caminhoUsuarios);
 
-    int tentativas = 3; // Limite de tentativas de login
-
-    while (tentativas > 0) {
+    while (true) {
         cout << "Digite 1 para login ou 2 para encerrar o programa: ";
         int option;
         cin >> option;
@@ -42,7 +41,7 @@ unique_ptr<User> login() {
                     string phone = usuario["phone"];
                     long cpf = usuario["cpf"];
 
-                    if (tipo == "manager") {
+                    if (tipo == "gestor") {
                         return make_unique<Manager>(nome, email, phone, tipo, senha, cpf);
                     } else if (tipo == "morador") {
                         bool pagamento = usuario["pagamento_em_dia"];
@@ -57,51 +56,105 @@ unique_ptr<User> login() {
         if (!emailEncontrado) {
             cout << "Email não encontrado. Tente novamente." << endl;
         }
-
-        tentativas--; // Reduz uma tentativa
-        if (tentativas > 0) {
-            cout << "Você tem " << tentativas << " tentativas restantes." << endl;
-        } else {
-            cout << "Número máximo de tentativas alcançado. Encerrando o programa." << endl;
-            return nullptr;
-        }
     }
 
     return nullptr; // Caso o loop seja encerrado sem sucesso
 }
 
-
 int main() {
-    
+    // Chama o login e obtém o ponteiro único para o usuário logado
     auto usuario = login();
-    if (!usuario) {
-        cout << "Falha no login. Encerrando o programa." << endl;
+    
+    if (!usuario) { // Verifica se o login foi cancelado ou falhou
+        cout << "Login cancelado ou inválido. Encerrando o programa." << endl;
         return 1;
     }
 
+    // Após o login, verifica o tipo de usuário usando dynamic_cast
     if (auto manager = dynamic_cast<Manager*>(usuario.get())) {
-        int choice;
-        cout << "Escolha uma opção:\n1. Adicionar Morador\n2. Adicionar Trabalhador\n3. Adicionar Aviso";
-        cin >> choice;
+        while (true) { // Menu do gestor
+            int choice;
+            cout << "\nEscolha uma opção:\n";
+            cout << "1. Adicionar Morador\n";
+            cout << "2. Adicionar Trabalhador\n";
+            cout << "3. Adicionar Aviso\n";
+            cout << "4. Reservar área comum\n";
+            cout << "5. Mostrar histórico\n";
+            cout << "6. Registrar serviço\n";
+            cout << "7. Adicionar despesas\n";
+            cout << "8. Mostrar despesas\n";
+            cout << "Digite sua escolha: ";
+            cin >> choice;
 
-        switch (choice) {
-            case 1:
-                manager->adicionarUsuarioMorador();
-                break;
-            case 2:
-                manager->adicionarNovoFuncionario();
-                break;
-            case 3:
-                manager->adicionarAvisos();
-                break;
-            default:
-                cout << "Opção inválida!" << endl;
-                break;
+            switch (choice) {
+                case 1:
+                    manager->adicionarUsuarioMorador();
+                    break;
+                case 2:
+                    manager->adicionarNovoFuncionario();
+                    break;
+                case 3:
+                    manager->adicionarAvisos();
+                    break;
+                case 4:
+                    manager->reservarAreaComumManager();
+                    break;
+                case 5:
+                    manager->mostrarHistorico();
+                    break;
+                case 6:
+                    manager->resgistraServico();
+                    break;
+                case 7:
+                    manager->adicionarDespesas();
+                    break;
+                case 8:
+                    manager->mostrarDespesas();
+                    break;
+                default:
+                    cout << "Opção inválida. Tente novamente." << endl;
+                    break;
+            }
         }
     } else if (auto resident = dynamic_cast<Resident*>(usuario.get())) {
-        cout << "resident iniciado";
+        while (true) { // Menu do gestor
+            int choice;
+            cout << "\nEscolha uma opção:\n";
+            cout << "1. Adicionar Morador adicional\n";
+            cout << "2. Reservar área comum\n";
+            cout << "3. Dar FeedBack ou sugestão\n";
+            cout << "4. Ver regras do condomínio\n";
+            cout << "5. Ver funcionários\n";
+            cout << "6. Ver avisos\n";
+            cout << "7. Sair\n";
+            cout << "Digite sua escolha: ";
+            cin >> choice;
+
+            switch (choice) {
+                case 1:
+                    resident->reservarAreaComum();
+                    break;
+                case 2:
+                    resident->feedback();
+                    break;
+                case 3:
+                    resident->verRegras();
+                    break;
+                case 4:
+                    resident->verFuncionarios();
+                    break;
+                case 5:
+                    resident->verAvisos();
+                    break;
+                default:
+                    cout << "Opção inválida. Tente novamente." << endl;
+                    break;
+            }
+        }
+    } else {
+        cout << "Tipo de usuário não reconhecido. Encerrando o programa." << endl;
+        return 1;
     }
 
-    cout << "Encerrando o programa." << endl;
-    return 0;    
+    return 0; // Finaliza o programa
 }

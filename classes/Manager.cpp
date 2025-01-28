@@ -87,7 +87,7 @@ void Manager::adicionarNovoFuncionario() {
         {"turno", turno}
     };
 
-    condominioJson["condominio"]["funcionarios"].push_back(novoFuncionario);
+    condominioJson["funcionarios"].push_back(novoFuncionario);
 
     salvarArquivo(caminhoCondominio, condominioJson);
 
@@ -132,7 +132,7 @@ void Manager::adicionarAvisos() {
         {"observacoes", obs}
     };
 
-    condominioJson["condominio"]["avisos"].push_back(novoAviso);
+    condominioJson["avisos"].push_back(novoAviso);
 
     salvarArquivo(caminhoCondominio, condominioJson);
 
@@ -140,7 +140,7 @@ void Manager::adicionarAvisos() {
 
 }
 
-void Manager::Rent() {
+void Manager::reservarAreaComumManager() {
     string areaReservada, dataInicio, caminhoUsuarios, caminhoAlugueis;
     json alugueisJson, usuariosJson;
     int codigoArea, numero_apt;
@@ -170,12 +170,12 @@ void Manager::Rent() {
         cout << "CPF não encontrado no sistema. Aluguel não registrado." << endl;
         return;
     }
-
-    cout << "Digite o código da área que deseja reservar:  \n";
+    cout << "Digite o código da área que deseja reservar: \n";
     cout << "1: Salao de Festas \n";
     cout << "2: Churrasqueira \n";
     cout << "3: Sauna \n";
     cout << "4: Playgroud \n";
+    cout << "\nDigite o código da área que deseja reservar:  \n";
 
     cin >> codigoArea;
     cin.ignore();
@@ -198,52 +198,86 @@ void Manager::Rent() {
             return;
     }
 
-    cout << "Digite a data de início do aluguel (DD-MM-YYYY): \n";
+    cout << "Digite a data em que deseja alugar (DD-MM-YYYY): \n";
     getline(cin, dataInicio);
 
+    // Verificar se a data já está reservada para a área escolhida
+    for (const auto& reserva : alugueisJson["reservas"]) {
+        if (reserva["area_reservada"] == areaReservada && reserva["data_inicio"] == dataInicio) {
+            cout << "A área já está reservada para essa data. Por favor, escolha outra data." << endl;
+            return;
+        }
+    }
+
     json novoAluguel = {
-        {"cpf_morador", cpfMorador},
         {"numero_apt", numero_apt},
         {"area_reservada", areaReservada},
         {"data_inicio", dataInicio}
     };
 
-    alugueisJson["alugueis"].push_back(novoAluguel);
+    alugueisJson["reservas"].push_back(novoAluguel);
     salvarArquivo(caminhoAlugueis, alugueisJson);
 
-    cout << "Aluguel registrado com sucesso!" << endl;
+    cout << "Reserva registrada com sucesso!" << endl;
 }
 
-void Manager::ShowHistory() {
-    string caminhoHistorico = "bdjson/historico.json";
-    json historicoJson = carregarArquivo(caminhoHistorico);
+void Manager::mostrarHistorico() {
+    string caminhoCondominio = "bdjson/condominio.json";
+    json historicoJson = carregarArquivo(caminhoCondominio);
 
-    cout << "Histórico de eventos do condomínio:" << endl;
+    cout << "\nReservas de áreas comuns:" << endl;
 
-    for (const auto& evento : historicoJson["historico"]) {
-        cout << "Data: " << evento["data"] << ", Descrição: " << evento["descricao"] << endl;
+    for (const auto& reserva : historicoJson["reservas"]) {
+        cout << "Área: " << reserva["area_reservada"]
+            << ", Data: " << reserva["data_inicio"]
+            << ", Apartamento: " << reserva["numero_apt"] << endl;
+    }
+
+    cout << "\nAvisos:" << endl;
+
+    for (const auto& aviso : historicoJson["avisos"]) {
+        cout << "Aviso: " << aviso["aviso"]
+            << ", Data: " << aviso["data"]
+            << ", Observações: " << aviso["observacoes"] << endl;
+    }
+
+    cout << "\nServiços:" << endl;
+
+    for (const auto& servico : historicoJson["servicos"]) {
+        cout << "Serviço: " << servico["nome"]
+            << ", Empresa: " << servico["empresa"]
+            << ", Data de início: " << servico["data_inicio"]
+            << ", Data de término: " << servico["data_fim"] << endl;
     }
 }
 
-void Manager::RegisterService() {
-    string caminhoServicos = "bdjson/servicos.json";
-    json servicosJson = carregarArquivo(caminhoServicos);
+void Manager::resgistraServico() {
+    string caminhoCondominio = "bdjson/condominio.json";
+    json servicosJson = carregarArquivo(caminhoCondominio);
 
     cout << "Digite o nome do serviço: ";
     string nomeServico;
     getline(cin, nomeServico);
 
+    cin.ignore();
+    
     cout << "Digite o nome da empresa fornecedora: ";
     string empresa;
     getline(cin, empresa);
+
+    cin.ignore();
 
     cout << "Digite a data de início do serviço (YYYY-MM-DD): ";
     string dataInicio;
     getline(cin, dataInicio);
 
+    cin.ignore();
+
     cout << "Digite a data de término do serviço (YYYY-MM-DD): ";
     string dataFim;
     getline(cin, dataFim);
+
+    cin.ignore();
 
     json novoServico = {
         {"nome", nomeServico},
@@ -253,41 +287,46 @@ void Manager::RegisterService() {
     };
 
     servicosJson["servicos"].push_back(novoServico);
-    salvarArquivo(caminhoServicos, servicosJson);
+    salvarArquivo(caminhoCondominio, servicosJson);
 
     cout << "Serviço registrado com sucesso!" << endl;
 }
 
-void Manager::AddExpenses() {
-    string caminhoDespesas = "bdjson/despesas.json";
-    json despesasJson = carregarArquivo(caminhoDespesas);
+void Manager::adicionarDespesas() {
+    string caminhoCondominio = "bdjson/condominio.json";
+    json despesasJson = carregarArquivo(caminhoCondominio);
 
-    cout << "Digite a descrição da despesa: ";
-    string descricao;
-    getline(cin, descricao);
+    cout << "Lista de serviços disponíveis:" << endl;
+    for (size_t i = 0; i < despesasJson["servicos"].size(); ++i) {
+        cout << i + 1 << ": " << despesasJson["servicos"][i]["nome"]
+             << " - Data: " << despesasJson["servicos"][i]["data_inicio"] << " a " << despesasJson["servicos"][i]["data_fim"] << endl;
+    }
+
+    cout << "Escolha o número do serviço para adicionar a despesa: ";
+    size_t escolha;
+    cin >> escolha;
+    cin.ignore();
+
+    if (escolha < 1 || escolha > despesasJson["servicos"].size()) {
+        cout << "Escolha inválida." << endl;
+        return;
+    }
+
+    json& servicoEscolhido = despesasJson["servicos"][escolha - 1];
 
     cout << "Digite o valor da despesa: ";
-    double valor;
+    long valor;
     cin >> valor;
     cin.ignore();
 
-    cout << "Digite a data da despesa (YYYY-MM-DD): ";
-    string data;
-    getline(cin, data);
+    json novaDespesa = {"valor", valor};
 
-    json novaDespesa = {
-        {"descricao", descricao},
-        {"valor", valor},
-        {"data", data}
-    };
-
-    despesasJson["despesas"].push_back(novaDespesa);
-    salvarArquivo(caminhoDespesas, despesasJson);
-
+    servicoEscolhido.push_back(novaDespesa);
+    salvarArquivo(caminhoCondominio, servicoEscolhido);
     cout << "Despesa adicionada com sucesso!" << endl;
 }
 
-void Manager::ShowExpenses() {
+void Manager::mostrarDespesas() {
     string caminhoDespesas = "bdjson/despesas.json";
     json despesasJson = carregarArquivo(caminhoDespesas);
 

@@ -16,10 +16,10 @@ public:
     const string& senha, const long& cpf, bool& pagamento);
 
     void reservarAreaComum();
-    void verAvisos();
     void feedback();
     void verRegras();
     void verFuncionarios();
+    void verAvisos();
 
 
 };

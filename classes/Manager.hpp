@@ -16,11 +16,11 @@ public:
     void adicionarUsuarioMorador();
     void adicionarNovoFuncionario();
     void adicionarAvisos();
-    void Rent();
-    void ShowHistory();
-    void RegisterService();
-    void AddExpenses();
-    void ShowExpenses();
+    void reservarAreaComumManager();
+    void mostrarHistorico(); // Histórico de eventos do condomínio/eventos/avisos
+    void resgistraServico();
+    void adicionarDespesas();
+    void mostrarDespesas();
 };
 
 #endif
