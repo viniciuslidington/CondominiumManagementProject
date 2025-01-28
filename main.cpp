@@ -72,48 +72,64 @@ int main() {
 
     // Após o login, verifica o tipo de usuário usando dynamic_cast
     if (auto manager = dynamic_cast<Manager*>(usuario.get())) {
-        while (true) { // Menu do gestor
-            int choice;
-            cout << "\nEscolha uma opção:\n";
-            cout << "1. Adicionar Morador\n";
-            cout << "2. Adicionar Trabalhador\n";
-            cout << "3. Adicionar Aviso\n";
-            cout << "4. Reservar área comum\n";
-            cout << "5. Mostrar histórico\n";
-            cout << "6. Registrar serviço\n";
-            cout << "7. Adicionar despesas\n";
-            cout << "8. Mostrar despesas\n";
-            cout << "9. Sair\n";
-            cout << "Digite sua escolha: ";
-            cin >> choice;
+    while (true) { // Menu do gestor
+        int choice;
+        cout << "\nEscolha uma opção:\n";
+        cout << "1. Adicionar Morador\n";
+        cout << "2. Adicionar Trabalhador\n";
+        cout << "3. Adicionar Aviso\n";
+        cout << "4. Mostrar Avisos\n";
+        cout << "5. Reservar área comum\n";
+        cout << "6. Mostrar Reservas\n";
+        cout << "7. Registrar serviço\n";
+        cout << "8. Mostrar serviços\n";
+        cout << "9. Mostrar histórico\n";
+        cout << "10. Sair\n";
+        cout << "Digite sua escolha: ";
+        cin >> choice;
 
-            switch (choice) {
-                case 1:
-                    manager->adicionarUsuarioMorador();
-                    break;
-                case 2:
-                    manager->adicionarNovoFuncionario();
-                    break;
-                case 3:
-                    manager->adicionarAvisos();
-                    break;
-                case 4:
-                    manager->reservarAreaComumManager();
-                    break;
-                case 5:
-                    manager->mostrarHistorico();
-                    break;
-                case 6:
-                    manager->resgistraServico();
-                    break;
-                case 7:
-                    manager->adicionarDespesas();
-                    break;
-                case 8:
-                    manager->mostrarDespesas();
-                    break;
-                default:
-                    break;
+        // Verifica se a entrada é válida
+        if (cin.fail()) {
+            cin.clear(); // Limpa os erros do buffer
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignora entradas inválidas
+            cout << "Opção inválida. Por favor, digite um número entre 1 e 8.\n";
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                manager->adicionarUsuarioMorador();
+                break;
+            case 2:
+                manager->adicionarNovoFuncionario();
+                break;
+            case 3:
+                manager->adicionarAvisos();
+                break;
+            case 4:
+                manager->mostrarAvisos();
+                break;
+            case 5:
+                manager->reservarAreaComumManager();
+                break;
+            case 6:
+                manager->mostrarReservas();
+                break;
+            case 7:
+                manager->resgistraServico();
+                break;
+            case 8:
+                manager->mostrarServicos();
+                break;
+            case 9:
+                manager->mostrarHistorico();
+                break;
+            case 10:
+                cout << "Saindo do menu do gestor...\n";
+                return 0; // Sai do menu do gestor
+            default:
+                cout << "Opção inválida. Por favor, digite um número entre 1 e 10.\n";
+                break;
             }
         }
     } else if (auto resident = dynamic_cast<Resident*>(usuario.get())) {

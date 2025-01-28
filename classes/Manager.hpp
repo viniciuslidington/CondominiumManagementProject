@@ -19,8 +19,9 @@ public:
     void reservarAreaComumManager();
     void mostrarHistorico(); // Histórico de eventos do condomínio/eventos/avisos
     void resgistraServico();
-    void adicionarDespesas();
-    void mostrarDespesas();
+    void mostrarServicos();
+    void mostrarAvisos();
+    void mostrarReservas();
 };
 
 #endif
