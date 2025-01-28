@@ -83,6 +83,7 @@ int main() {
             cout << "6. Registrar serviço\n";
             cout << "7. Adicionar despesas\n";
             cout << "8. Mostrar despesas\n";
+            cout << "9. Sair\n";
             cout << "Digite sua escolha: ";
             cin >> choice;
 
@@ -112,7 +113,6 @@ int main() {
                     manager->mostrarDespesas();
                     break;
                 default:
-                    cout << "Opção inválida. Tente novamente." << endl;
                     break;
             }
         }
