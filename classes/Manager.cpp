@@ -4,12 +4,10 @@ Manager::Manager(const string& name, const string& email, const string& phone, c
     : User(name, email, phone, type, senha, cpf) {}
 
 void Manager::adicionarUsuarioMorador() {
-   
-    string caminhoUsuarios = "bdjson/usuarios.json";
+    string caminhoUsuarios = "bdjson/usuarios.json"; // Caminho do arquivo
+    json usuariosJson = carregarArquivo(caminhoUsuarios); // Carregando o arquivo dos usuários
 
-    json usuariosJson = carregarArquivo(caminhoUsuarios);
-
-        // Solicitar informações do novo usuário
+    // Solicitar informações do novo usuário
     std::cout << "Digite o CPF: ";
     long long cpf;
     std::cin >> cpf;
@@ -27,16 +25,12 @@ void Manager::adicionarUsuarioMorador() {
     std::string senha;
     std::getline(std::cin, senha);
 
-    std::cout << "Digite o tipo (morador/gestor): ";
-    std::string tipo;
-    std::getline(std::cin, tipo);
+    std::string tipo = "morador";
 
     // Dados adicionais para moradores
-    bool pagamentoEmDia = false;
-    if (tipo == "morador") {
-        std::cout << "O pagamento está em dia? (1 para Sim, 0 para Não): ";
-        std::cin >> pagamentoEmDia;
-    }
+    bool pagamentoEmDia = true;
+    std::cout << "O pagamento está em dia? (1 para Sim, 0 para Não): ";
+    std::cin >> pagamentoEmDia;
 
     // Criar novo usuário
     json novoUsuario = {
@@ -44,22 +38,89 @@ void Manager::adicionarUsuarioMorador() {
         {"email", email},
         {"nome", nome},
         {"senha", senha},
-        {"tipo", tipo}
+        {"tipo", tipo},
+        {"pagamento_em_dia", pagamentoEmDia}
     };
-
-    if (tipo == "morador") {
-        novoUsuario["pagamento_em_dia"] = pagamentoEmDia;
-    }
 
     // Adicionar ao JSON
     usuariosJson["usuarios"].push_back(novoUsuario);
 
-    // Salvar as alterações no arquivo
+    string caminhoUnidades = "bdjson/unidades.json";
+    json unidadesJson = carregarArquivo(caminhoUnidades);
+
+    int unidadeNum;
+    bool unidadeValida = false;
+
+    // Solicitar uma unidade válida (disponível e existente)
+    while (!unidadeValida) {
+        std::cout << "Digite o número da unidade que o usuário será cadastrado: ";
+        std::cin >> unidadeNum;
+
+        for (auto& unidade : unidadesJson["unidades"]) {
+            if (unidade["numero"] == unidadeNum && !unidade["ocupado"]) {
+                unidade["morador_cpf"] = cpf;
+                unidade["ocupado"] = true;
+                unidadeValida = true;
+                break; // Parar o loop após encontrar a unidade válida
+            }
+        }
+
+        if (!unidadeValida) {
+            std::cout << "Unidade inválida ou já ocupada. Por favor, insira uma unidade disponível." << std::endl;
+        }
+    }
+
+    // Salvar os JSONs atualizados no arquivo
+    salvarArquivo(caminhoUnidades, unidadesJson);
     salvarArquivo(caminhoUsuarios, usuariosJson);
 
-    std::cout << "Usuário adicionado com sucesso!" << std::endl;
-      
+    std::cout << "Usuário " << nome << " cadastrado com sucesso na unidade " << unidadeNum << "!" << std::endl;
 }
+
+void Manager::removerUsuarioMorador() {
+    string caminhoUsuarios = "bdjson/usuarios.json"; // Caminho do arquivo dos usuários
+    json usuariosJson = carregarArquivo(caminhoUsuarios); // Carregar os dados dos usuários
+
+    string caminhoUnidades = "bdjson/unidades.json"; // Caminho do arquivo das unidades
+    json unidadesJson = carregarArquivo(caminhoUnidades); // Carregar os dados das unidades
+
+    std::cout << "Digite o CPF do morador que deseja remover: ";
+    long long cpf;
+    std::cin >> cpf;
+
+    bool usuarioEncontrado = false;
+
+    // Procurar o usuário pelo CPF no JSON de usuários
+    for (auto it = usuariosJson["usuarios"].begin(); it != usuariosJson["usuarios"].end(); ++it) {
+        if ((*it)["cpf"] == cpf) {
+            usuarioEncontrado = true;
+
+            // Remover o morador do JSON de unidades
+            for (auto& unidade : unidadesJson["unidades"]) {
+                if (unidade["morador_cpf"] == cpf) {
+                    unidade["morador_cpf"] = nullptr; // Transformar o cpf em null
+                    unidade["ocupado"] = false;  // Marcar a unidade como disponível
+                    break;
+                }
+            }
+
+            // Remover o usuário do JSON de usuários
+            usuariosJson["usuarios"].erase(it);
+            break;
+        }
+    }
+
+    if (usuarioEncontrado) {
+        // Salvar os JSONs atualizados nos arquivos
+        salvarArquivo(caminhoUsuarios, usuariosJson);
+        salvarArquivo(caminhoUnidades, unidadesJson);
+        std::cout << "Usuário removido com sucesso!" << std::endl;
+    } else {
+        std::cout << "Usuário com o CPF " << cpf << " não foi encontrado." << std::endl;
+    }
+}
+
+
 
 void Manager::adicionarNovoFuncionario() {
     string nome, turno, funcao, caminhoCondominio;

@@ -14,6 +14,7 @@ public:
     Manager(const string& name, const string& email, const string& phone, const string& type, const string& senha, const long& cpf);
 
     void adicionarUsuarioMorador();
+    void removerUsuarioMorador();
     void adicionarNovoFuncionario();
     void adicionarAvisos();
     void reservarAreaComumManager();

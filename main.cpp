@@ -76,15 +76,16 @@ int main() {
         int choice;
         cout << "\nEscolha uma opção:\n";
         cout << "1. Adicionar Morador\n";
-        cout << "2. Adicionar Trabalhador\n";
-        cout << "3. Adicionar Aviso\n";
-        cout << "4. Mostrar Avisos\n";
-        cout << "5. Reservar área comum\n";
-        cout << "6. Mostrar Reservas\n";
-        cout << "7. Registrar serviço\n";
-        cout << "8. Mostrar serviços\n";
-        cout << "9. Mostrar histórico\n";
-        cout << "10. Sair\n";
+        cout << "2. Remover Morador\n";
+        cout << "3. Adicionar Trabalhador\n";
+        cout << "4. Adicionar Aviso\n";
+        cout << "5. Mostrar Avisos\n";
+        cout << "6. Reservar área comum\n";
+        cout << "7. Mostrar Reservas\n";
+        cout << "8. Registrar serviço\n";
+        cout << "9. Mostrar serviços\n";
+        cout << "10. Mostrar histórico\n";
+        cout << "11. Sair\n";
         cout << "Digite sua escolha: ";
         cin >> choice;
 
@@ -101,34 +102,37 @@ int main() {
                 manager->adicionarUsuarioMorador();
                 break;
             case 2:
-                manager->adicionarNovoFuncionario();
+                manager->removerUsuarioMorador();
                 break;
             case 3:
-                manager->adicionarAvisos();
+                manager->adicionarNovoFuncionario();
                 break;
             case 4:
-                manager->mostrarAvisos();
+                manager->adicionarAvisos();
                 break;
             case 5:
-                manager->reservarAreaComumManager();
+                manager->mostrarAvisos();
                 break;
             case 6:
-                manager->mostrarReservas();
+                manager->reservarAreaComumManager();
                 break;
             case 7:
-                manager->resgistraServico();
+                manager->mostrarReservas();
                 break;
             case 8:
-                manager->mostrarServicos();
+                manager->resgistraServico();
                 break;
             case 9:
-                manager->mostrarHistorico();
+                manager->mostrarServicos();
                 break;
             case 10:
+                manager->mostrarHistorico();
+                break;
+            case 11:
                 cout << "Saindo do menu do gestor...\n";
                 return 0; // Sai do menu do gestor
             default:
-                cout << "Opção inválida. Por favor, digite um número entre 1 e 10.\n";
+                cout << "Opção inválida. Por favor, digite um número entre 1 e 11.\n";
                 break;
             }
         }
