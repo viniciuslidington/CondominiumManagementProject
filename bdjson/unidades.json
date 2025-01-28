@@ -1,55 +1,54 @@
 {
     "unidades": [
         {
-        "morador_cpf": 1026642860,
-        "numero": 101,
-        "ocupado": true
+            "morador_cpf": 1026642860,
+            "numero": 101,
+            "ocupado": true
         },
         {
-        "morador_cpf": null,
-        "numero": 102,
-        "ocupado": false
+            "morador_cpf": 9110833404,
+            "numero": 102,
+            "ocupado": true
         },
         {
-        "morador_cpf": null,
-        "numero": 201,
-        "ocupado": false
+            "morador_cpf": 3514399855,
+            "numero": 201,
+            "ocupado": true
         },
         {
-        "morador_cpf": null,
-        "numero": 202,
-        "ocupado": false
+            "morador_cpf": null,
+            "numero": 202,
+            "ocupado": false
         },
         {
-        "morador_cpf": null,
-        "numero": 301,
-        "ocupado": false
+            "morador_cpf": null,
+            "numero": 301,
+            "ocupado": false
         },
         {
-        "morador_cpf": null,
-        "numero": 302,
-        "ocupado": false
+            "morador_cpf": null,
+            "numero": 302,
+            "ocupado": false
         },
         {
-        "morador_cpf": null,
-        "numero": 401,
-        "ocupado": false
+            "morador_cpf": null,
+            "numero": 401,
+            "ocupado": false
         },
         {
-        "morador_cpf": null,
-        "numero": 402,
-        "ocupado": false
+            "morador_cpf": null,
+            "numero": 402,
+            "ocupado": false
         },
         {
-        "morador_cpf": null,
-        "numero": 501,
-        "ocupado": false
+            "morador_cpf": null,
+            "numero": 501,
+            "ocupado": false
         },
         {
-        "morador_cpf": null,
-        "numero": 502,
-        "ocupado": false
+            "morador_cpf": null,
+            "numero": 502,
+            "ocupado": false
         }
     ]
 }
-        
