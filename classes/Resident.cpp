@@ -8,7 +8,7 @@ Resident::Resident(const string& name, const string& email, const string& phone,
                    const string& senha, const long& cpf, bool& pagamento) 
     : User(name, email, phone, type, senha, cpf), pagamento_em_dia(pagamento) {}
 
-// Função para reservar área comum
+// Função para reservar área comum -- COPIAR DA MANAGER
 void Resident::reservarAreaComum() {
     cout << "Reservando uma área comum...\n";
     // Código para a lógica de reserva de área comum
