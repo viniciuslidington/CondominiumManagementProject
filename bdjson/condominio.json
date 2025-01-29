@@ -1,5 +1,21 @@
 {
-    "avisos": [],
+    "avisos": [
+        {
+            "aviso": "Teste avisos",
+            "destinatario": 102,
+            "observacoes": ""
+        },
+        {
+            "aviso": "Elevadores estarao indisponiveis amanha as 23:00",
+            "destinatario": 0,
+            "observacoes": ""
+        },
+        {
+            "aviso": "Elevadores indisponiveis amanha as 23:00",
+            "destinatario": 0,
+            "observacoes": "Manutencao"
+        }
+    ],
     "condominio": {
         "endereco_predio": "Rua das Palmeiras, 123",
         "nome_predio": "Residencial Alpha",
