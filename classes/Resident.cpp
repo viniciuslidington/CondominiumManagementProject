@@ -5,10 +5,10 @@ using namespace std;
 
 // Construtor
 Resident::Resident(const string& name, const string& email, const string& phone, const string& type, 
-                   const string& senha, const long& cpf, bool& pagamento) 
-    : User(name, email, phone, type, senha, cpf), pagamento_em_dia(pagamento) {}
+                   const string& senha, const long& cpf, bool& pagamento, const int& unidadeNumero) 
+    : User(name, email, phone, type, senha, cpf), pagamento_em_dia(pagamento), unidade(unidadeNumero)  {}
 
-// Função para reservar área comum -- COPIAR DA MANAGER
+
 void Resident::reservarAreaComumResident() {
     string areaReservada, dataReservada, caminhoAlugueis;
     json alugueisJson;
@@ -66,7 +66,8 @@ void Resident::reservarAreaComumResident() {
     } while (true);
 
     json novoAluguel = {
-        {"nome_morador", this->getName()},
+        {"nome_morador", this->user_name},
+        {"unidade", this->unidade},
         {"area_reservada", areaReservada},
         {"data_reservada", dataReservada}
     };
@@ -79,8 +80,15 @@ void Resident::reservarAreaComumResident() {
 
 // Função para visualizar avisos
 void Resident::verAvisos() {
-    cout << "Exibindo avisos para o residente...\n";
-    // Código para exibir avisos
+    string caminhoAvisos;
+    json avisosJson;
+
+    caminhoAvisos = "bdjson/condominio.json";
+    avisosJson = carregarArquivo(caminhoAvisos);
+
+
+    
+
 }
 
 // Função para enviar feedback

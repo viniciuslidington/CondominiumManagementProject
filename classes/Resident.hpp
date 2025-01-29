@@ -15,10 +15,11 @@ class Resident : public User {
 
 private:
     bool pagamento_em_dia;
+    int unidade;
 
 public:
     Resident(const string& name, const string& email, const string& phone, const string& type, 
-    const string& senha, const long& cpf, bool& pagamento);
+    const string& senha, const long& cpf, bool& pagamento, const int& unidade);
 
     void reservarAreaComumResident();
     void feedback();
@@ -26,6 +27,7 @@ public:
     void verFuncionarios();
     void verAvisos();
 
+    
 
 };
 #endif 
