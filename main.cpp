@@ -74,6 +74,9 @@ int main() {
     if (auto manager = dynamic_cast<Manager*>(usuario.get())) {
     while (true) { // Menu do gestor
         int choice;
+        cout << "\nBem-vindo, gestor " << manager->getName() << "!\n";
+        cout << endl;
+        cout << "-----------------------------------";
         cout << "\nEscolha uma opção:\n";
         cout << "1. Adicionar Morador\n";
         cout << "2. Remover Morador\n";
@@ -86,6 +89,8 @@ int main() {
         cout << "9. Mostrar serviços\n";
         cout << "10. Mostrar histórico\n";
         cout << "11. Sair\n";
+        cout << "-----------------------------------\n";
+        cout << endl;
         cout << "Digite sua escolha: ";
         cin >> choice;
 
@@ -139,13 +144,18 @@ int main() {
     } else if (auto resident = dynamic_cast<Resident*>(usuario.get())) {
         while (true) { // Menu do gestor
             int choice;
-            cout << "\nEscolha uma opção:\n";
+            cout << "\nBem-vindo, morador " << resident->getName() << "!\n";
+            cout << endl;
+            cout << "-----------------------------------\n";
+            cout << "Escolha uma opção:\n";
             cout << "1. Reservar área comum\n";
             cout << "2. Dar FeedBack ou sugestão\n";
             cout << "3. Ver regras do condomínio\n";
             cout << "4. Ver funcionários\n";
             cout << "5. Ver avisos\n";
             cout << "6. Sair\n";
+            cout << "-----------------------------------\n";
+            cout << endl;
             cout << "Digite sua escolha: ";
             cin >> choice;
 

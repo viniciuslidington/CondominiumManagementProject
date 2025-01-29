@@ -149,7 +149,7 @@ void Resident::verRegras() {
 
     cout << "Regras do condomínio:\n";
     cout << endl;
-    
+
     for(const auto& regra : regrasJson["condominio"]["regras_condominio"].items()) {
         cout << "Regra: " << regra.key() << endl;
         cout << "Descrição: " << regra.value().get<std::string>() << endl;
@@ -159,6 +159,20 @@ void Resident::verRegras() {
 
 // Função para visualizar funcionários
 void Resident::verFuncionarios() {
-    cout << "Exibindo a lista de funcionários do condomínio...\n";
-    // Código para exibir funcionários
+    string caminhoFuncionarios;
+    json funcionariosJson;
+
+    caminhoFuncionarios = "bdjson/condominio.json";
+    funcionariosJson = carregarArquivo(caminhoFuncionarios);
+
+    cout << "Funcionários do condomínio:\n";
+
+    for(const auto& funcionario : funcionariosJson["funcionarios"]) {
+        cout << endl;
+        cout << "Nome: " << funcionario["nome"].get<std::string>() << endl;
+        cout << "Função: " << funcionario["funcao"].get<std::string>() << endl;
+        cout << "Turno: " << funcionario["turno"].get<std::string>() << endl;
+        cout << endl;
+    }
+
 }

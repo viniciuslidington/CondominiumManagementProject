@@ -3,14 +3,13 @@
     "condominio": {
         "endereco_predio": "Rua das Palmeiras, 123",
         "nome_predio": "Residencial Alpha",
-        "regras_condominio":
-            {
-                "1": "Não é permitido fazer barulho após as 22h.", 
-                "2": "Animais de estimação devem estar sempre acompanhados nas áreas comuns.",
-                "3": "O uso da piscina é permitido apenas das 8h às 20h.",
-                "4": "É proibido fumar nas áreas comuns do condomínio.",
-                "5": "O lixo deve ser descartado nos locais apropriados."
-            }
+        "regras_condominio": {
+            "1": "Não é permitido fazer barulho após as 22h.",
+            "2": "Animais de estimação devem estar sempre acompanhados nas áreas comuns.",
+            "3": "O uso da piscina é permitido apenas das 8h às 20h.",
+            "4": "É proibido fumar nas áreas comuns do condomínio.",
+            "5": "O lixo deve ser descartado nos locais apropriados."
+        }
     },
     "feedbacks": [
         {
@@ -34,7 +33,14 @@
             "morador": "Anônimo"
         }
     ],
-    "funcionarios": [],
+    "funcionarios": [
+        {
+            "cod_funcionario": 1,
+            "funcao": "porteiro",
+            "nome": "joao",
+            "turno": "manha"
+        }
+    ],
     "reservas": [
         {
             "area_reservada": "Salao de Festas",
