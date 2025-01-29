@@ -140,19 +140,18 @@ int main() {
         while (true) { // Menu do gestor
             int choice;
             cout << "\nEscolha uma opção:\n";
-            cout << "1. Adicionar Morador adicional\n";
-            cout << "2. Reservar área comum\n";
-            cout << "3. Dar FeedBack ou sugestão\n";
-            cout << "4. Ver regras do condomínio\n";
-            cout << "5. Ver funcionários\n";
-            cout << "6. Ver avisos\n";
-            cout << "7. Sair\n";
+            cout << "1. Reservar área comum\n";
+            cout << "2. Dar FeedBack ou sugestão\n";
+            cout << "3. Ver regras do condomínio\n";
+            cout << "4. Ver funcionários\n";
+            cout << "5. Ver avisos\n";
+            cout << "6. Sair\n";
             cout << "Digite sua escolha: ";
             cin >> choice;
 
             switch (choice) {
                 case 1:
-                    resident->reservarAreaComum();
+                    resident->reservarAreaComumResident();
                     break;
                 case 2:
                     resident->feedback();
@@ -166,8 +165,11 @@ int main() {
                 case 5:
                     resident->verAvisos();
                     break;
+                case 6:
+                    cout << "Saindo do menu do morador...\n";
+                    return 0;
                 default:
-                    cout << "Opção inválida. Tente novamente." << endl;
+                    cout << "Opção inválida. Por favor, digite um número entre 1 e 6.\n";
                     break;
             }
         }

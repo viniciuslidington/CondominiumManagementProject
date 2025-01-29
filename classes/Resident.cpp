@@ -106,8 +106,37 @@ void Resident::verAvisos() {
 
 // Função para enviar feedback
 void Resident::feedback() {
-    cout << "Enviando feedback...\n";
-    // Código para enviar feedback
+    string feedback, caminhoFeedbacks;
+    json feedbacksJson, novoFeedback;
+    char resposta;
+
+    caminhoFeedbacks = "bdjson/condominio.json";
+    feedbacksJson = carregarArquivo(caminhoFeedbacks);
+
+    cout << "Digite seu feedback ou sugestão: ";
+    cin.ignore();
+    getline(cin, feedback);
+
+    cout << "Deseja se identificar? (S/N): ";
+    cin >> resposta;
+    cin.ignore();
+
+    if (resposta == 'S' || resposta == 's') {
+        novoFeedback = {
+            {"feedback", feedback},
+            {"morador", this->getName()}
+        };
+    } else {
+        novoFeedback = {
+            {"feedback", feedback},
+            {"morador", "Anônimo"}
+        };
+    }
+
+    feedbacksJson["feedbacks"].push_back(novoFeedback);
+    salvarArquivo(caminhoFeedbacks, feedbacksJson);
+
+    cout << "Feedback enviado com sucesso!" << endl;
 }
 
 // Função para visualizar regras
