@@ -1,4 +1,5 @@
 #include "Manager.hpp"
+#include "ValidacaoInputs.hpp"
 
 Manager::Manager(const string& name, const string& email, const string& phone, const string& type, const string& senha, const long& cpf)
     : User(name, email, phone, type, senha, cpf) {}
@@ -236,7 +237,7 @@ void Manager::adicionarAvisos() {
 
 
 void Manager::reservarAreaComumManager() {
-    string areaReservada, dataInicio, caminhoUsuarios, caminhoAlugueis;
+    string areaReservada, dataReserva, caminhoUsuarios, caminhoAlugueis;
     json alugueisJson, usuariosJson;
     int codigoArea, numero_apt;
     bool cpfValido = false;
@@ -293,12 +294,11 @@ void Manager::reservarAreaComumManager() {
             return;
     }
 
-    cout << "Digite a data em que deseja alugar (DD-MM-YYYY): \n";
-    getline(cin, dataInicio);
+    dataReserva = solicitarDataValida();
 
     // Verificar se a data já está reservada para a área escolhida
     for (const auto& reserva : alugueisJson["reservas"]) {
-        if (reserva["area_reservada"] == areaReservada && reserva["data_inicio"] == dataInicio) {
+        if (reserva["area_reservada"] == areaReservada && reserva["data_reserva"] == dataReserva) {
             cout << "A área já está reservada para essa data. Por favor, escolha outra data." << endl;
             return;
         }
@@ -307,7 +307,7 @@ void Manager::reservarAreaComumManager() {
     json novoAluguel = {
         {"numero_apt", numero_apt},
         {"area_reservada", areaReservada},
-        {"data_inicio", dataInicio}
+        {"data_reservada", dataReserva}
     };
 
     alugueisJson["reservas"].push_back(novoAluguel);
@@ -351,19 +351,11 @@ void Manager::resgistraServico() {
         return;
     }
 
-    cout << "Digite a data de início do serviço (YYYY-MM-DD): ";
-    getline(cin, dataInicio);
-    if (dataInicio.empty() || dataInicio.size() != 10) {
-        cerr << "Erro: Data de início inválida." << endl;
-        return;
-    }
-
-    cout << "Digite a data de término do serviço (YYYY-MM-DD): ";
-    getline(cin, dataFim);
-    if (dataFim.empty() || dataFim.size() != 10) {
-        cerr << "Erro: Data de término inválida." << endl;
-        return;
-    }
+    cout << "Data de início do serviço : ";
+    dataInicio = solicitarDataValida();
+    
+    cout << "Data termino do serviço : ";
+    dataFim = solicitarDataValida();
 
     cout << "Digite o valor do serviço: ";
     if (!(cin >> valor) || valor < 0) {
@@ -498,7 +490,6 @@ void Manager::mostrarHistorico() {
         for (const auto& aviso : historicoJson["avisos"]) {
             if (aviso.contains("aviso") && aviso.contains("data") && aviso.contains("observacoes")) {
                 cout << "Aviso: " << aviso["aviso"]
-                    << ", Data: " << aviso["data"]
                     << ", Observações: " << aviso["observacoes"] << endl;
             }
         }
