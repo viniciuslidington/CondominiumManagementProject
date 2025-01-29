@@ -40,12 +40,13 @@ unique_ptr<User> login() {
                     string nome = usuario["nome"];
                     string phone = usuario["phone"];
                     long cpf = usuario["cpf"];
+                    int unidade = usuario["unidade"];
 
                     if (tipo == "gestor") {
                         return make_unique<Manager>(nome, email, phone, tipo, senha, cpf);
                     } else if (tipo == "morador") {
                         bool pagamento = usuario["pagamento_em_dia"];
-                        return make_unique<Resident>(nome, email, phone, tipo, senha, cpf, pagamento);
+                        return make_unique<Resident>(nome, email, phone, tipo, senha, cpf, pagamento, unidade);
                     }
                 } else {
                     cout << "Senha inválida. Tente novamente." << endl;

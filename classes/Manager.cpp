@@ -12,26 +12,34 @@ void Manager::adicionarUsuarioMorador() {
     std::cout << "Digite o CPF: ";
     long long cpf;
     std::cin >> cpf;
-
     std::cin.ignore(); // Limpa o buffer
+
     std::cout << "Digite o email: ";
     std::string email;
     std::getline(std::cin, email);
+    std::cin.ignore();
 
     std::cout << "Digite o nome: ";
     std::string nome;
     std::getline(std::cin, nome);
+    std::cin.ignore();
 
     std::cout << "Digite a senha: ";
     std::string senha;
     std::getline(std::cin, senha);
+    std::cin.ignore();
 
     std::string tipo = "morador";
 
+    std::cout << "Digite a unidade do morador: ";
+    int unidade;
+    std::cin >> unidade;
+    std::cin.ignore();
     // Dados adicionais para moradores
     bool pagamentoEmDia = true;
     std::cout << "O pagamento está em dia? (1 para Sim, 0 para Não): ";
     std::cin >> pagamentoEmDia;
+    std::cin.ignore();
 
     // Criar novo usuário
     json novoUsuario = {
@@ -40,7 +48,8 @@ void Manager::adicionarUsuarioMorador() {
         {"nome", nome},
         {"senha", senha},
         {"tipo", tipo},
-        {"pagamento_em_dia", pagamentoEmDia}
+        {"pagamento_em_dia", pagamentoEmDia},
+        {"unidade", unidade}
     };
 
     // Adicionar ao JSON

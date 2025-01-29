@@ -5,40 +5,20 @@ using namespace std;
 
 // Construtor
 Resident::Resident(const string& name, const string& email, const string& phone, const string& type, 
-                   const string& senha, const long& cpf, bool& pagamento) 
-    : User(name, email, phone, type, senha, cpf), pagamento_em_dia(pagamento) {}
+                   const string& senha, const long& cpf, bool& pagamento, const int& unidadeNumero) 
+    : User(name, email, phone, type, senha, cpf), pagamento_em_dia(pagamento), unidade(unidadeNumero)  {}
 
-// Função para reservar área comum -- COPIAR DA MANAGER
+
 void Resident::reservarAreaComumResident() {
-    string areaReservada, dataReservada, caminhoUsuarios, caminhoAlugueis;
-    json alugueisJson, usuariosJson;
-    int codigoArea, numero_apt;
-    bool cpfValido = false;
-    long long cpfMorador;
+    string areaReservada, dataReservada, caminhoAlugueis;
+    json alugueisJson;
+    int codigoArea;
+    bool dataOcupada = false;
 
-    caminhoUsuarios = "bdjson/unidades.json";
     caminhoAlugueis = "bdjson/condominio.json";
-
     alugueisJson = carregarArquivo(caminhoAlugueis);
 
-    cout << "Digite o CPF do morador que está reservando o espaço: ";
-    cin >> cpfMorador;
-    cin.ignore();
-    // Verificar se o CPF do morador existe no arquivo de usuários
-    usuariosJson = carregarArquivo(caminhoUsuarios);
 
-    for (const auto& usuario : usuariosJson["unidades"]) {
-        if (usuario["morador_cpf"] == cpfMorador) {
-            cpfValido = true;
-            numero_apt = usuario["numero"];
-            break;
-        }
-    }
-
-    if (!cpfValido) {
-        cout << "CPF não encontrado no sistema. Aluguel não registrado." << endl;
-        return;
-    }
     cout << "Digite o código da área que deseja reservar: \n";
     cout << "1: Salao de Festas \n";
     cout << "2: Churrasqueira \n";
@@ -71,7 +51,6 @@ void Resident::reservarAreaComumResident() {
         cout << "Digite a data em que deseja alugar (DD-MM-YYYY): \n";
         getline(cin, dataReservada);
         
-        bool dataOcupada = false;
         // Verificar se a data já está reservada para a área escolhida
         for (const auto& reserva : alugueisJson["reservas"]) {
             if (reserva["area_reservada"] == areaReservada && reserva["data_reservada"] == dataReservada) {
@@ -87,7 +66,8 @@ void Resident::reservarAreaComumResident() {
     } while (true);
 
     json novoAluguel = {
-        {"numero_apt", numero_apt},
+        {"nome_morador", this->user_name},
+        {"unidade", this->unidade},
         {"area_reservada", areaReservada},
         {"data_reservada", dataReservada}
     };
@@ -100,8 +80,15 @@ void Resident::reservarAreaComumResident() {
 
 // Função para visualizar avisos
 void Resident::verAvisos() {
-    cout << "Exibindo avisos para o residente...\n";
-    // Código para exibir avisos
+    string caminhoAvisos;
+    json avisosJson;
+
+    caminhoAvisos = "bdjson/condominio.json";
+    avisosJson = carregarArquivo(caminhoAvisos);
+
+
+    
+
 }
 
 // Função para enviar feedback
