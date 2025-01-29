@@ -1,6 +1,25 @@
 {
-    "usuarios": [
+    "usuarios": [{
+            "cpf": 1,
+            "email": "teste",
+            "nome": "teste",
+            "pagamento_em_dia": true,
+            "phone": "81996823515",
+            "senha": "teste",
+            "tipo": "morador"
+
+        },
         {
+            "cpf": 2,
+            "email": "teste1",
+            "nome": "teste1",
+            "pagamento_em_dia": true,
+            "phone": "81996823515",
+            "senha": "teste1",
+            "tipo": "gestor"
+
+        }
+        ,{
             "cpf": 1026642860,
             "email": "joao.silva@email.com",
             "nome": "João Silva",
