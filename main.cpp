@@ -3,9 +3,13 @@
 #include "json.hpp" // Inclua o arquivo json.hpp no seu projeto
 #include "classes/Manager.hpp"
 #include "classes/Resident.hpp"
+#include "classes/Sistema.hpp"
 using namespace std;
 using json = nlohmann::json;
 
+unique_ptr<Sistema> IniciarSistema(){
+    return make_unique<Sistema>();
+}
 //Login (Loop para verificar login e acessar funcoes das respectivas classes)
 unique_ptr<User> login() {
     string email, senha;
@@ -64,6 +68,8 @@ unique_ptr<User> login() {
 
 int main() {
     // Chama o login e obtém o ponteiro único para o usuário logado
+    auto sistema = IniciarSistema();
+    sistema->atualizarPagamentos();
     auto usuario = login();
     
     if (!usuario) { // Verifica se o login foi cancelado ou falhou

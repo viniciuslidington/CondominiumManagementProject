@@ -1,14 +1,14 @@
 {
-    "usuarios": [{
+    "usuarios": [
+        {
             "cpf": 1,
             "email": "teste",
             "nome": "teste",
-            "pagamento_em_dia": true,
+            "pagamento_em_dia": false,
             "phone": "81996823515",
             "senha": "teste",
             "tipo": "morador",
             "unidade": 404
-
         },
         {
             "cpf": 2,
@@ -17,13 +17,12 @@
             "phone": "81996823515",
             "senha": "teste1",
             "tipo": "gestor"
-
-        }
-        ,{
+        },
+        {
             "cpf": 1026642860,
             "email": "joao.silva@email.com",
             "nome": "João Silva",
-            "pagamento_em_dia": true,
+            "pagamento_em_dia": false,
             "phone": "81996823515",
             "senha": "senha123",
             "tipo": "morador",
@@ -41,7 +40,7 @@
             "cpf": 9110833404,
             "email": "mpedrosa.melo@gmail.com",
             "nome": "Marcelo Melo",
-            "pagamento_em_dia": true,
+            "pagamento_em_dia": false,
             "senha": "marcelo12345",
             "tipo": "morador",
             "unidade": 102
@@ -50,7 +49,7 @@
             "cpf": 3514399855,
             "email": "viniciuslindigton@gmail.com",
             "nome": "Vinicius Lindington",
-            "pagamento_em_dia": true,
+            "pagamento_em_dia": false,
             "senha": "viniDelas",
             "tipo": "morador",
             "unidade": 201
