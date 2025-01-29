@@ -4,6 +4,8 @@
 #include "classes/Manager.hpp"
 #include "classes/Resident.hpp"
 #include "classes/Sistema.hpp"
+#include "classes/ValidacaoInputs.hpp"
+
 using namespace std;
 using json = nlohmann::json;
 

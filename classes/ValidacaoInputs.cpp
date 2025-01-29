@@ -33,14 +33,23 @@ bool validarDataFutura(const string& data) {
 string solicitarDataValida() {
     string data;
     do {
-        cout << "Digite a data em que deseja alugar (DD-MM-YYYY): ";
+        cout << "Digite a data em que deseja (DD-MM-YYYY): ";
         getline(cin, data);
 
         if (validarDataFutura(data)) {
             cout << "Data válida!" << endl;
             return data;
         } else {
-            cout << "Data inválida. Tente novamente." << endl;
-        }
+            cout << "Data inválida" << endl;
+            cout << "Deseja tentar novamente? (S/N): ";
+            char resposta;
+            cin >> resposta;
+            cin.ignore();
+            if (resposta == 'N' || resposta == 'n') {
+                exit(0);
+            } else {
+                continue;
+            }
+    }
     } while (true);
 }

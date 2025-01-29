@@ -1,5 +1,5 @@
 #include "Manager.hpp"
-//#include "ValidacaoInputs.hpp"
+#include "ValidacaoInputs.hpp"
 
 Manager::Manager(const string& name, const string& email, const string& phone, const string& type, const string& senha, const long& cpf)
     : User(name, email, phone, type, senha, cpf) {}
@@ -135,10 +135,11 @@ void Manager::removerUsuarioMorador() {
 
 void Manager::adicionarNovoFuncionario() {
     string nome, turno, funcao, caminhoCondominio;
+    json condominioJson;
     int cod_funcionario;
 
     caminhoCondominio = "bdjson/condominio.json";
-    json condominioJson = carregarArquivo(caminhoCondominio);
+    condominioJson = carregarArquivo(caminhoCondominio);
 
     cin.ignore();
     cout << "Digite o cod funcionario: ";
@@ -247,12 +248,12 @@ void Manager::reservarAreaComumManager() {
     caminhoAlugueis = "bdjson/condominio.json";
 
     alugueisJson = carregarArquivo(caminhoAlugueis);
+    usuariosJson = carregarArquivo(caminhoUsuarios);
 
     cout << "Digite o CPF do morador que está reservando o espaço: ";
     cin >> cpfMorador;
     cin.ignore();
     // Verificar se o CPF do morador existe no arquivo de usuários
-    usuariosJson = carregarArquivo(caminhoUsuarios);
 
     for (const auto& usuario : usuariosJson["unidades"]) {
         if (usuario["morador_cpf"] == cpfMorador) {
@@ -266,6 +267,7 @@ void Manager::reservarAreaComumManager() {
         cout << "CPF não encontrado no sistema. Aluguel não registrado." << endl;
         return;
     }
+
     cout << "Digite o código da área que deseja reservar: \n";
     cout << "1: Salao de Festas \n";
     cout << "2: Churrasqueira \n";
@@ -294,10 +296,7 @@ void Manager::reservarAreaComumManager() {
             return;
     }
 
-    cout << "Digite a data da reserva: ";
-    getline(cin, dataReserva);
-
-    ////dataReserva = solicitarDataValida();
+    dataReserva = solicitarDataValida();
 
     // Verificar se a data já está reservada para a área escolhida
     for (const auto& reserva : alugueisJson["reservas"]) {
@@ -318,7 +317,6 @@ void Manager::reservarAreaComumManager() {
 
     cout << "Reserva registrada com sucesso!" << endl;
 }
-
 
 
 void Manager::resgistraServico() {
@@ -355,13 +353,10 @@ void Manager::resgistraServico() {
     }
 
     cout << "Data de início do serviço : ";
-    getline(cin, dataInicio);
-
-    //dataInicio = solicitarDataValida();
+    dataInicio = solicitarDataValida();
     
     cout << "Data termino do serviço : ";
-    getline(cin, dataFim);
-    //dataFim = solicitarDataValida();
+    dataFim = solicitarDataValida();
 
     cout << "Digite o valor do serviço: ";
     if (!(cin >> valor) || valor < 0) {
@@ -370,7 +365,6 @@ void Manager::resgistraServico() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         return;
     }
-
     // Limpa o buffer após a leitura numérica
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
