@@ -141,8 +141,20 @@ void Resident::feedback() {
 
 // Função para visualizar regras
 void Resident::verRegras() {
-    cout << "Exibindo as regras do condomínio...\n";
-    // Código para exibir regras
+    string caminhoRegras;
+    json regrasJson;
+    
+    caminhoRegras = "bdjson/condominio.json";
+    regrasJson = carregarArquivo(caminhoRegras);
+
+    cout << "Regras do condomínio:\n";
+    cout << endl;
+    
+    for(const auto& regra : regrasJson["condominio"]["regras_condominio"].items()) {
+        cout << "Regra: " << regra.key() << endl;
+        cout << "Descrição: " << regra.value().get<std::string>() << endl;
+        cout << endl;
+    }
 }
 
 // Função para visualizar funcionários
