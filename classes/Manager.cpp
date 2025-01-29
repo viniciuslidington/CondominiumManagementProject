@@ -157,50 +157,74 @@ void Manager::adicionarNovoFuncionario() {
 }
 
 void Manager::adicionarAvisos() {
-    string aviso, data, obs, caminhoCondominio;
-    bool possuiData, possuiAviso;
+    string aviso, obs, caminhoCondominio;
+    int destinatario = 0; // Valor padrão do destinatário
+    bool possuiAviso, destinatarioEspecifico;
 
     caminhoCondominio = "bdjson/condominio.json";
     json condominioJson = carregarArquivo(caminhoCondominio);
 
+    string caminhoUnidades = "bdjson/unidades.json";
+    json unidadesJson = carregarArquivo(caminhoUnidades);
+
+    // Solicitar o texto do aviso
     cin.ignore();
     cout << "Digite o AVISO que deseja comunicar: ";
     getline(cin, aviso);
-    cout << "O aviso possui uma data específica? (1 para Sim, 0 para Não): ";
-    cin >> possuiData;
-    cin.ignore(); // Limpa o buffer
 
-    if (possuiData) {
-        cout << "Digite a DATA que o evento acontecerá: ";
-        getline(cin, data);
-    } else {
-        data = "";
-    }
-
-    cout << "O aviso possui alguma Observção? (1 para Sim, 0 para Não) ";
+    // Verificar se o aviso possui observações
+    cout << "O aviso possui alguma observação? (1 para Sim, 0 para Não): ";
     cin >> possuiAviso;
     cin.ignore();
 
-    if(possuiAviso) {
+    if (possuiAviso) {
         cout << "Digite a OBSERVAÇÃO do aviso: ";
-        getline(cin,obs);
+        getline(cin, obs);
     } else {
         obs = "";
     }
 
+    // Verificar se o usuário deseja informar um destinatário específico
+    cout << "Deseja enviar este aviso para uma unidade específica? (1 para Sim, 0 para Não): ";
+    cin >> destinatarioEspecifico;
+
+    if (destinatarioEspecifico) {
+        bool unidadeValida = false;
+
+        while (!unidadeValida) {
+            cout << "Digite o número da unidade destinatária: ";
+            cin >> destinatario;
+
+            // Validar se a unidade existe no banco de dados
+            for (const auto& unidade : unidadesJson["unidades"]) {
+                if (unidade["numero"] == destinatario) {
+                    unidadeValida = true;
+                    break;
+                }
+            }
+
+            if (!unidadeValida) {
+                cout << "Unidade não encontrada no banco de dados. Por favor, insira uma unidade válida." << endl;
+            }
+        }
+    }
+
+    // Criar o novo aviso
     json novoAviso = {
         {"aviso", aviso},
-        {"data", data},
-        {"observacoes", obs}
+        {"observacoes", obs},
+        {"destinatario", destinatario}
     };
 
+    // Adicionar o aviso ao JSON de avisos
     condominioJson["avisos"].push_back(novoAviso);
 
+    // Salvar o JSON atualizado
     salvarArquivo(caminhoCondominio, condominioJson);
 
     cout << "Aviso adicionado com sucesso!" << endl;
-
 }
+
 
 void Manager::reservarAreaComumManager() {
     string areaReservada, dataInicio, caminhoUsuarios, caminhoAlugueis;
@@ -399,18 +423,27 @@ void Manager::mostrarAvisos() {
     string caminhoCondominio = "bdjson/condominio.json";
     json historicoJson = carregarArquivo(caminhoCondominio);
 
-    cout << "\nAvisos:" << endl;
+    cout << "\nAvisos: " << endl;
 
     if (historicoJson.contains("avisos")) {
+        bool encontrouAviso = false;
+
         for (const auto& aviso : historicoJson["avisos"]) {
-            cout << "Aviso: " << aviso["aviso"]
-                << ", Data: " << aviso["data"]
-                << ", Observações: " << aviso["observacoes"] << endl;
+            if (aviso.contains("destinatario") && aviso["destinatario"] == 0) {
+                cout << "Aviso: " << aviso["aviso"]
+                    << ", Observações: " << aviso["observacoes"] << endl;
+                encontrouAviso = true;
+            }
+        }
+
+        if (!encontrouAviso) {
+            cout << "Nenhum aviso para o destinatário 0000 encontrado." << endl;
         }
     } else {
         cout << "Nenhum aviso encontrado." << endl;
     }
 }
+
 
 void Manager::mostrarReservas() {
     string caminhoCondominio = "bdjson/condominio.json";
