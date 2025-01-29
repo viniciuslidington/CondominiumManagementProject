@@ -9,20 +9,17 @@
 #include <ctime>
 
 using json = nlohmann::json;
-
 using namespace std;
 
 class Sistema {
 private:
+    bool isDayOfMonth(int day);
+    string getMesAtual();
+    bool precisaAtualizar(const json& data);
 
-    // Função para verificar se hoje é o primeiro dia do mês
-    bool isDayOfMonth(int day) ;
 public:
-
     Sistema();
-
     void atualizarPagamentos();
-
 };
 
-#endif 
+#endif
