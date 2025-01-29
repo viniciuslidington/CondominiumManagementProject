@@ -1,4 +1,5 @@
 #include "Resident.hpp"
+#include "ValidacaoInputs.hpp"
 #include <iostream>
 
 using namespace std;
@@ -10,7 +11,7 @@ Resident::Resident(const string& name, const string& email, const string& phone,
 
 
 void Resident::reservarAreaComumResident() {
-    string areaReservada, dataReservada, caminhoAlugueis;
+    string areaReservada, dataReservada, caminhoAlugueis, datateste;
     json alugueisJson;
     int codigoArea;
     bool dataOcupada = false;
@@ -48,8 +49,7 @@ void Resident::reservarAreaComumResident() {
     }
 
     do {
-        cout << "Digite a data em que deseja alugar (DD-MM-YYYY): \n";
-        getline(cin, dataReservada);
+        dataReservada = solicitarDataValida();
         
         // Verificar se a data já está reservada para a área escolhida
         for (const auto& reserva : alugueisJson["reservas"]) {
