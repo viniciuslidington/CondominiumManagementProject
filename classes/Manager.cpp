@@ -1,5 +1,5 @@
 #include "Manager.hpp"
-#include "ValidacaoInputs.hpp"
+//#include "ValidacaoInputs.hpp"
 
 Manager::Manager(const string& name, const string& email, const string& phone, const string& type, const string& senha, const long& cpf)
     : User(name, email, phone, type, senha, cpf) {}
@@ -294,7 +294,10 @@ void Manager::reservarAreaComumManager() {
             return;
     }
 
-    dataReserva = solicitarDataValida();
+    cout << "Digite a data da reserva: ";
+    getline(cin, dataReserva);
+
+    ////dataReserva = solicitarDataValida();
 
     // Verificar se a data já está reservada para a área escolhida
     for (const auto& reserva : alugueisJson["reservas"]) {
@@ -352,10 +355,13 @@ void Manager::resgistraServico() {
     }
 
     cout << "Data de início do serviço : ";
-    dataInicio = solicitarDataValida();
+    getline(cin, dataInicio);
+
+    //dataInicio = solicitarDataValida();
     
     cout << "Data termino do serviço : ";
-    dataFim = solicitarDataValida();
+    getline(cin, dataFim);
+    //dataFim = solicitarDataValida();
 
     cout << "Digite o valor do serviço: ";
     if (!(cin >> valor) || valor < 0) {

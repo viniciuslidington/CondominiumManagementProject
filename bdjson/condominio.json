@@ -79,6 +79,12 @@
             "data_reservada": "4",
             "nome_morador": "teste",
             "unidade": 404
+        },
+        {
+            "area_reservada": "Salao de Festas",
+            "data_reservada": "24-09-2001",
+            "nome_morador": "teste",
+            "unidade": 404
         }
     ],
     "servicos": [
