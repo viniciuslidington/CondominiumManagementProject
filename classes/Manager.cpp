@@ -19,10 +19,7 @@ void Manager::adicionarUsuarioMorador() {
     bool unidadeValida = false;
     bool pagamentoEmDia = true;
 
-    // Solicitar informações do novo usuário
-    cout << "Digite o CPF: ";
-    cin >> cpf;
-    cin.ignore(); // Limpa o buffer
+    cpf = solicitarCPF();
 
     cout << "Digite o email: ";
     getline(cin, email);
