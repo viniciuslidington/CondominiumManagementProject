@@ -34,6 +34,15 @@
             "senha": "",
             "tipo": "morador",
             "unidade": 202
+        },
+        {
+            "cpf": 0,
+            "email": "yan@gmail.com",
+            "nome": "Yan",
+            "pagamento_em_dia": false,
+            "senha": "123",
+            "tipo": "morador",
+            "unidade": 383358584
         }
     ]
 }

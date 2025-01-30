@@ -37,7 +37,6 @@ string solicitarDataValida() {
         getline(cin, data);
 
         if (validarDataFutura(data)) {
-            cout << "Data válida!" << endl;
             return data;
         } else {
             cout << "Data inválida" << endl;
