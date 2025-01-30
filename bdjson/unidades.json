@@ -26,7 +26,7 @@
             "ocupado": false
         },
         {
-            "morador_cpf": "40285634453",
+            "morador_cpf": null,
             "numero": 302,
             "ocupado": true
         },
@@ -48,6 +48,56 @@
         {
             "morador_cpf": null,
             "numero": 502,
+            "ocupado": true
+        },
+        {
+            "morador_cpf": null,
+            "numero": 601,
+            "ocupado": false
+        },
+        {
+            "morador_cpf": null,
+            "numero": 602,
+            "ocupado": false
+        },
+        {
+            "morador_cpf": null,
+            "numero": 701,
+            "ocupado": false
+        },
+        {
+            "morador_cpf": null,
+            "numero": 702,
+            "ocupado": false
+        },
+        {
+            "morador_cpf": null,
+            "numero": 801,
+            "ocupado": false
+        },
+        {
+            "morador_cpf": null,
+            "numero": 802,
+            "ocupado": false
+        },
+        {
+            "morador_cpf": null,
+            "numero": 901,
+            "ocupado": false
+        },
+        {
+            "morador_cpf": null,
+            "numero": 902,
+            "ocupado": false
+        },
+        {
+            "morador_cpf": 12345678901,
+            "numero": 1001,
+            "ocupado": true
+        },
+        {
+            "morador_cpf": null,
+            "numero": 1002,
             "ocupado": false
         }
     ]

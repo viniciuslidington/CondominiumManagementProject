@@ -2,6 +2,7 @@
 #include <iostream>
 #include <ctime>
 #include <sstream>
+#include <limits>
 
 using namespace std;
 
@@ -55,56 +56,49 @@ string solicitarDataValida() {
 }
 
 bool validarCPF(long long cpf) {
-    string cpfStr = to_string(cpf);
-    if (cpfStr.length() != 11) {
-        cout << "CPF deve ter 11 dígitos." << endl;
+    // CPF deve estar entre 11 dígitos (10000000000 a 99999999999)
+    if (cpf < 10000000000LL || cpf > 99999999999LL) {
+        cout << "CPF inválido! Deve conter exatamente 11 números.\n";
         return false;
     }
-
-    int soma = 0, resto;
-    for (int i = 0; i < 9; ++i) {
-        soma += (cpfStr[i] - '0') * (10 - i);
-    }
-    resto = (soma * 10) % 11;
-    if (resto == 10) resto = 0;
-    if (resto != (cpfStr[9] - '0')) {
-        cout << "CPF inválido." << endl;
-        return false;
-    }
-
-    soma = 0;
-    for (int i = 0; i < 10; ++i) {
-        soma += (cpfStr[i] - '0') * (11 - i);
-    }
-    resto = (soma * 10) % 11;
-    if (resto == 10) resto = 0;
-    if (resto != (cpfStr[10] - '0')) {
-        cout << "CPF inválido." << endl;
-        return false;
-    }
-
     return true;
 }
 
 long long solicitarCPF() {
     long long cpf;
-    do {
-        cout << "Digite o CPF: (Somente números) ";
-        cin >> cpf;
-        if (validarCPF(cpf)) {
-            cout << "CPF válido!" << endl;
-            return cpf;
-        } else {
-            cout << "Deseja tentar novamente? (S/N): ";
-            char resposta;
-            cin >> resposta;
-            cin.ignore();
-            if (resposta == 'N' || resposta == 'n') {
-                break;
-            } else {
-                continue;
-            }
+
+    while (true) {
+        cout << "Digite o CPF (apenas números, 11 dígitos): ";
+
+        // Lendo a entrada como string para garantir que não pule linhas
+        string cpfStr;
+        cin >> cpfStr;
+
+        // Verifica se a string contém exatamente 11 números
+        if (cpfStr.length() != 11 || cpfStr.find_first_not_of("0123456789") != string::npos) {
+            cout << "Entrada inválida! O CPF deve conter apenas 11 números.\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpa buffer
+            continue;
         }
-    } while (true);
-    return 0;
+
+        // Converte para long long
+        cpf = stoll(cpfStr);
+
+        if (validarCPF(cpf)) {
+            cout << "CPF válido!\n";
+            return cpf;
+        }
+
+        // Perguntar se o usuário deseja tentar novamente
+        cout << "Deseja tentar novamente? (S/N): ";
+        char resposta;
+        cin >> resposta;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpa buffer para evitar que pule inputs
+
+        if (resposta == 'N' || resposta == 'n') {
+            cout << "Operação cancelada.\n";
+            return 0; // Retorna 0 indicando que não foi cadastrado
+        }
+    }
 }
