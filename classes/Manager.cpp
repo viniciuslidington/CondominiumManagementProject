@@ -1,6 +1,9 @@
 #include "Manager.hpp"
 #include "ValidacaoInputs.hpp"
 #include <iostream>
+#include <fstream>
+#include <limits>
+#include <algorithm>
 
 using namespace std;
 
@@ -8,79 +11,90 @@ Manager::Manager(const string& name, const string& email, const string& phone, c
     : User(name, email, phone, type, senha, cpf) {}
 
 
-void Manager::adicionarUsuarioMorador() {
-    string caminhoUsuarios = "bdjson/usuarios.json"; // Caminho do arquivo
-    string caminhoUnidades = "bdjson/unidades.json";
-    json usuariosJson = carregarArquivo(caminhoUsuarios); // Carregando o arquivo dos usuários
-    json unidadesJson = carregarArquivo(caminhoUnidades);
-    string email, nome, senha;
-    int unidadeNum, unidade;
-    long long cpf;
-    bool unidadeValida = false;
-    bool pagamentoEmDia = true;
+// Função auxiliar para obter entrada numérica válida
+template <typename T>
+T obterEntradaValida(const string& mensagem) {
+    T valor;
+    while (true) {
+        cout << mensagem;
+        if (cin >> valor) {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return valor;
+        } else {
+            cout << "Entrada inválida! Tente novamente.\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
+}
 
-    cpf = solicitarCPF();
+// Função auxiliar para buscar unidade disponível
+bool buscarUnidadeDisponivel(json& unidadesJson, int unidadeNum, string cpf) {
+    auto it = find_if(unidadesJson["unidades"].begin(), unidadesJson["unidades"].end(),
+        [unidadeNum](const json& unidade) {
+            return unidade["numero"] == unidadeNum && !unidade["ocupado"];
+        });
+
+    if (it != unidadesJson["unidades"].end()) {
+        (*it)["morador_cpf"] = cpf;
+        (*it)["ocupado"] = true;
+        return true;
+    }
+    return false;
+}
+
+// Implementação da função de adicionar morador
+void Manager::adicionarUsuarioMorador() {
+    string email, nome, senha, cpf;
+    int unidadeNum;
+    bool pagamentoEmDia, unidadeValida = false;
+
+    json usuariosJson = carregarArquivo("bdjson/usuarios.json");
+    json unidadesJson = carregarArquivo("bdjson/unidades.json");
+
+    cout << "Digite o CPF: ";
+    cin.ignore(); // Limpa buffer antes de `getline`
+    getline(cin, cpf);
 
     cout << "Digite o email: ";
-    cin.clear();
     getline(cin, email);
-    cin.ignore();
 
     cout << "Digite o nome: ";
-    cin.clear();
     getline(cin, nome);
-    cin.ignore();
 
     cout << "Digite a senha: ";
-    cin.clear();
     getline(cin, senha);
-    cin.ignore();
-    // Dados adicionais para moradores
-    cout << "O pagamento está em dia? (1 para Sim, 0 para Não): ";
-    cin.clear();
-    cin >> pagamentoEmDia;
-    cin.ignore();
-    // Criar novo usuário
+
+    pagamentoEmDia = obterEntradaValida<bool>("O pagamento está em dia? (1 para Sim, 0 para Não): ");
+
     json novoUsuario = {
         {"cpf", cpf},
         {"email", email},
         {"nome", nome},
         {"senha", senha},
         {"tipo", "morador"},
-        {"pagamento_em_dia", pagamentoEmDia},
-        {"unidade", unidade}
+        {"pagamento_em_dia", pagamentoEmDia}
     };
 
-
-    // Solicitar uma unidade válida (disponível e existente)
+    // Solicita uma unidade válida
     while (!unidadeValida) {
-        cout << "Digite o número da unidade que o usuário será cadastrado: ";
-        cin.clear();
-        cin >> unidadeNum;
-        cin.ignore();
+        unidadeNum = obterEntradaValida<int>("Digite o número da unidade que o usuário será cadastrado: ");
 
-        for (auto& unidade : unidadesJson["unidades"]) {
-            if (unidade["numero"] == unidadeNum && !unidade["ocupado"]) {
-                unidade["morador_cpf"] = cpf;
-                unidade["ocupado"] = true;
-                unidadeValida = true;
-                break; // Parar o loop após encontrar a unidade válida
-            }
-        }
-
-        if (!unidadeValida) {
-            cout << "Unidade inválida ou já ocupada. Por favor, insira uma unidade disponível." << endl;
+        if (buscarUnidadeDisponivel(unidadesJson, unidadeNum, cpf)) {
+            unidadeValida = true;
+        } else {
+            cout << "Unidade inválida ou já ocupada. Por favor, insira uma unidade disponível.\n";
         }
     }
 
-    // Adicionar ao JSON
+    novoUsuario["unidade"] = unidadeNum;
     usuariosJson["usuarios"].push_back(novoUsuario);
 
     // Salvar os JSONs atualizados no arquivo
-    salvarArquivo(caminhoUnidades, unidadesJson);
-    salvarArquivo(caminhoUsuarios, usuariosJson);
+    salvarArquivo("bdjson/unidades.json", unidadesJson);
+    salvarArquivo("bdjson/usuarios.json", usuariosJson);
 
-    cout << "Usuário " << nome << " cadastrado com sucesso na unidade " << unidadeNum << "!" << endl;
+    cout << "Usuário " << nome << " cadastrado com sucesso na unidade " << unidadeNum << "!\n";
 }
 
 void Manager::removerUsuarioMorador() {
