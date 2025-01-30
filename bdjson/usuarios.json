@@ -53,6 +53,15 @@
             "senha": "viniDelas",
             "tipo": "morador",
             "unidade": 201
+        },
+        {
+            "cpf": 40285634453,
+            "email": "",
+            "nome": "wdqwd",
+            "pagamento_em_dia": true,
+            "senha": "",
+            "tipo": "morador",
+            "unidade": 906004480
         }
     ]
 }
