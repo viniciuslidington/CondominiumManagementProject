@@ -16,6 +16,7 @@ private:
     bool isDayOfMonth(int day);
     string getMesAtual();
     bool precisaAtualizar(const json& data);
+    void removerUsuario(const long& cpf);
 
 public:
     Sistema();

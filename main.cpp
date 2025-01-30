@@ -163,7 +163,8 @@ int main() {
             cout << "3. Ver regras do condomínio\n";
             cout << "4. Ver funcionários\n";
             cout << "5. Ver avisos\n";
-            cout << "6. Sair\n";
+            cout << "6. Realizar Pagamento \n";
+            cout << "7. Sair\n";
             cout << "-----------------------------------\n";
             cout << endl;
             cout << "Digite sua escolha: ";
@@ -186,6 +187,9 @@ int main() {
                     resident->verAvisos();
                     break;
                 case 6:
+                    resident->realizarPagamento(resident->getCpf());
+                    break;
+                case 7:
                     cout << "Saindo do menu do morador...\n";
                     return 0;
                 default:
