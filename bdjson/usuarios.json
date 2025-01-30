@@ -1,16 +1,6 @@
 {
     "usuarios": [
         {
-            "cpf": 1,
-            "email": "teste",
-            "nome": "teste",
-            "pagamento_em_dia": false,
-            "phone": "81996823515",
-            "senha": "teste",
-            "tipo": "morador",
-            "unidade": 404
-        },
-        {
             "cpf": 2,
             "email": "teste1",
             "nome": "teste1",
@@ -19,17 +9,7 @@
             "tipo": "gestor"
         },
         {
-            "cpf": 1026642860,
-            "email": "joao.silva@email.com",
-            "nome": "João Silva",
-            "pagamento_em_dia": false,
-            "phone": "81996823515",
-            "senha": "senha123",
-            "tipo": "morador",
-            "unidade": 101
-        },
-        {
-            "cpf": 12345678910,
+            "cpf": 12345678911,
             "email": "admin@condominio.com",
             "nome": "Administrador",
             "phone": "81996823515",
@@ -37,20 +17,12 @@
             "tipo": "gestor"
         },
         {
-            "cpf": 9110833404,
-            "email": "mpedrosa.melo@gmail.com",
-            "nome": "Marcelo Melo",
-            "pagamento_em_dia": false,
-            "senha": "marcelo12345",
-            "tipo": "morador",
-            "unidade": 102
-        },
-        {
-            "cpf": 3514399855,
-            "email": "viniciuslindigton@gmail.com",
-            "nome": "Vinicius Lindington",
-            "pagamento_em_dia": false,
-            "senha": "viniDelas",
+            "cpf": 44455566677,
+            "email": "morador3",
+            "nome": "Marcelo",
+            "pagamento_em_dia": true,
+            "phone": "81996823515",
+            "senha": "morador3",
             "tipo": "morador",
             "unidade": 201
         },
@@ -61,7 +33,7 @@
             "pagamento_em_dia": true,
             "senha": "",
             "tipo": "morador",
-            "unidade": 906004480
+            "unidade": 202
         }
     ]
 }

@@ -1,3 +1,32 @@
 {
-    "ultima_atualizacao": "2025-01"
+    "historico_atualizacoes": [
+        "2024-12",
+        "2025-01"
+    ],
+    "pagamentos": [
+        {
+            "historico": [
+                {
+                    "data": "2024-12-01"
+                }
+            ],
+            "user_cpf": 11122233344
+        },
+        {
+            "historico": [
+                {
+                    "data": "2024-12-01"
+                }
+            ],
+            "user_cpf": 1026642860
+        },
+        {
+            "historico": [
+                {
+                    "data": "2025-01-30"
+                }
+            ],
+            "user_cpf": 44455566677
+        }
+    ]
 }

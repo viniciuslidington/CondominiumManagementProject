@@ -3,6 +3,7 @@
 
 #include "User.hpp"
 #include <string>
+#include <ctime>
 #include <fstream>
 #include "../json.hpp" 
 #include "funcoes_json.hpp"
@@ -26,6 +27,7 @@ public:
     void verRegras();
     void verFuncionarios();
     void verAvisos();
+    void realizarPagamento(const long& cpf);
 
     
 
