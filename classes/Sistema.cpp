@@ -44,10 +44,8 @@ bool Sistema::precisaAtualizar(const json& data) {
     return true;
 }
 
-void Sistema::removerUsuario(const long& cpf) {
-    string caminhoUsuarios = "bdjson/usuarios.json"; // Caminho do arquivo dos usuários
-    json usuariosJson = carregarArquivo(caminhoUsuarios); // Carregar os dados dos usuários
-
+void Sistema::removerUsuario(const long& cpf, json& usuariosJson){
+     // Carregar os dados dos usuários
     string caminhoUnidades = "bdjson/unidades.json"; // Caminho do arquivo das unidades
     json unidadesJson = carregarArquivo(caminhoUnidades); // Carregar os dados das unidades
 
@@ -76,7 +74,6 @@ void Sistema::removerUsuario(const long& cpf) {
 
     if (usuarioEncontrado) {
         // Salvar os JSONs atualizados nos arquivos
-        salvarArquivo(caminhoUsuarios, usuariosJson);
         salvarArquivo(caminhoUnidades, unidadesJson);
         std::cout << "Usuário removido com sucesso!" << std::endl;
     } else {
@@ -91,21 +88,40 @@ void Sistema::atualizarPagamentos() {
     string caminhoSistema = "bdjson/sistema.json"; // Caminho do arquivo JSON
     json sistemaJson = carregarArquivo(caminhoSistema);
 
+    bool existe = true;
+    bool achado = false;
+
     // Verifica se já foi atualizado este mês
     if (!precisaAtualizar(sistemaJson)) {
         std::cout << "Os pagamentos já foram atualizados neste mês. Nenhuma alteração foi feita." << std::endl;
         return;
     }
 
-    //Remove os moradores que não realizaram o pagamento do mês anterior
-    for (auto& usuario : usuariosJson["usuarios"]) {
-        if (usuario["tipo"] == "morador" && usuario.contains("pagamento_em_dia") ) {
-            if(usuario["pagamento_em_dia"] == false){
-                removerUsuario(usuario["cpf"]);
+    while(existe){
+        achado = false;
+        cout << "iniciando while" << endl;
+        for (auto& usuario3 : usuariosJson["usuarios"]) {
+        if (usuario3["tipo"] == "morador" && usuario3.contains("pagamento_em_dia") ) {
+            if(usuario3["pagamento_em_dia"] == false){
+                removerUsuario(usuario3["cpf"], usuariosJson);
+                break;
                 
-            } 
+                } 
+            }
         }
+        for (auto& usuario2 : usuariosJson["usuarios"]){
+            if (usuario2["tipo"] == "morador" && usuario2.contains("pagamento_em_dia") ) {
+                if(usuario2["pagamento_em_dia"] == false){
+                    achado = true;
+                    break;
+                    }
+            }
+        }
+        if (!achado){ existe = false;}
+
     }
+
+    //Remove os moradores que não realizaram o pagamento do mês anterior
     // Atualiza os moradores
     for (auto& usuario : usuariosJson["usuarios"]) {
         if (usuario["tipo"] == "morador" && usuario.contains("pagamento_em_dia")) {

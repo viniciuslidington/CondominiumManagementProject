@@ -9,12 +9,22 @@
             "tipo": "gestor"
         },
         {
-            "cpf": 12345678910,
+            "cpf": 12345678911,
             "email": "admin@condominio.com",
             "nome": "Administrador",
             "phone": "81996823515",
             "senha": "admin123",
             "tipo": "gestor"
+        },
+        {
+            "cpf": 44455566677,
+            "email": "morador3",
+            "nome": "Marcelo",
+            "pagamento_em_dia": false,
+            "phone": "81996823515",
+            "senha": "morador3",
+            "tipo": "morador",
+            "unidade": 202
         }
     ]
 }
