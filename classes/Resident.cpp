@@ -89,7 +89,7 @@ void Resident::reservarAreaComumResident() {
 
 
 // Função para visualizar avisos
-void Resident::verAvisos(const int& unidade) {
+void Resident::verAvisos() {
     string caminhoCondominio = "bdjson/condominio.json";
     json condominioJson = carregarArquivo(caminhoCondominio);
 
@@ -109,12 +109,12 @@ void Resident::verAvisos(const int& unidade) {
     }
 
     cout << "\n===================================\n";
-    cout << "||  AVISOS PARA A UNIDADE " << unidade << "  ||\n";
+    cout << "||  AVISOS PARA A UNIDADE " << getUnidade() << "  ||\n";
     cout << "===================================\n";
     bool encontrouAvisoUnidade = false;
     
     for (const auto& aviso : condominioJson["avisos"]) {
-        if (aviso["destinatario"] == unidade) {
+        if (aviso["destinatario"] == getUnidade()) {
             cout << "- " << aviso["aviso"] << "\n";
             encontrouAvisoUnidade = true;
         }
@@ -210,10 +210,8 @@ void Resident::verFuncionarios() {
 
 
 
-
-// Biblioteca JSON for Modern C++ (nlohmann/json)
-
-void Resident::realizarPagamento(const long& cpf) {
+void Resident::realizarPagamento() {
+    const long&  cpf = getCpf();
     string caminhoUsuarios = "bdjson/usuarios.json";
     json usuariosJson = carregarArquivo(caminhoUsuarios);
 
