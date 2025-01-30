@@ -1,6 +1,7 @@
 #include "Resident.hpp"
 #include "ValidacaoInputs.hpp"
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
@@ -163,3 +164,68 @@ void Resident::verFuncionarios() {
     }
 
 }
+
+
+
+// Biblioteca JSON for Modern C++ (nlohmann/json)
+
+void Resident::realizarPagamento(const long& cpf) {
+    string caminhoUsuarios = "bdjson/usuarios.json";
+    json usuariosJson = carregarArquivo(caminhoUsuarios);
+
+    string caminhoSistema = "bdjson/usuarios.json";
+    json sistemaJson = carregarArquivo(caminhoSistema);
+
+    bool encontrado = false;
+
+    // Percorrer a lista de usuários para encontrar o CPF correspondente
+    for (auto& user : usuariosJson["usuarios"]) {
+        if (user["cpf"] == cpf) {
+            if (user["pagamento_em_dia"] == true) {
+                std::cout << "O pagamento já está em dia.\n";
+                return;
+            }
+
+            // Atualizar status do pagamento
+            user["pagamento_em_dia"] = true;
+
+            // Obter data atual
+            time_t t = time(0);
+            struct tm* now = localtime(&t);
+            char buffer[11]; // Formato YYYY-MM-DD\0
+            strftime(buffer, sizeof(buffer), "%Y-%m-%d", now);
+            std::string dataAtual(buffer);
+
+            // Adicionar pagamento ao histórico
+            for (auto& usuario : sistemaJson["pagamentos"]) {
+                if (usuario["user_cpf"] == cpf) {
+                    usuario["historico"].push_back({{"data", dataAtual}});
+                    encontrado = true;
+                    break;
+                        }
+                    }
+
+            if (!encontrado) {
+                json novoUsuario;
+                novoUsuario["user_cpf"] = cpf;
+                novoUsuario["historico"] = json::array(); // Inicializa um array vazio
+                json novaData = {
+                    {"data", dataAtual}
+                };
+                novoUsuario["historico"].push_back(novaData);
+
+                sistemaJson["pagamentos"].push_back(novoUsuario);
+            }
+
+            // Salvar as alterações nos arquivos JSON
+            salvarArquivo(caminhoSistema, sistemaJson);
+            salvarArquivo(caminhoUsuarios, usuariosJson);
+
+            std::cout << "Pagamento realizado com sucesso!\n";
+            return;
+        }
+    }
+
+    std::cerr << "Usuário não encontrado.\n";
+}
+
