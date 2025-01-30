@@ -247,10 +247,10 @@ int main() {
                     resident->verFuncionarios();
                     break;
                 case 5:
-                    resident->verAvisos(resident->getUnidade());
+                    resident->verAvisos();
                     break;
                 case 6:
-                    resident->realizarPagamento(resident->getCpf());
+                    resident->realizarPagamento();
                     break;
                 case 7:
                     cout << "\n===================================\n";
