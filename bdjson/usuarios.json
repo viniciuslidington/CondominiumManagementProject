@@ -34,6 +34,15 @@
             "senha": "",
             "tipo": "morador",
             "unidade": 202
+        },
+        {
+            "cpf": "40285634453",
+            "email": "jaci",
+            "nome": "jaci",
+            "pagamento_em_dia": true,
+            "senha": "jaci",
+            "tipo": "morador",
+            "unidade": 302
         }
     ]
 }
