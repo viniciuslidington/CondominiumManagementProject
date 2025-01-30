@@ -24,6 +24,15 @@
             "phone": "81996823515",
             "senha": "morador3",
             "tipo": "morador",
+            "unidade": 201
+        },
+        {
+            "cpf": 40285634453,
+            "email": "",
+            "nome": "wdqwd",
+            "pagamento_em_dia": true,
+            "senha": "",
+            "tipo": "morador",
             "unidade": 202
         }
     ]

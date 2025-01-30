@@ -19,31 +19,27 @@ void Manager::adicionarUsuarioMorador() {
     bool unidadeValida = false;
     bool pagamentoEmDia = true;
 
-    // Solicitar informações do novo usuário
-    cout << "Digite o CPF: ";
-    cin >> cpf;
-    cin.ignore(); // Limpa o buffer
+    cpf = solicitarCPF();
 
     cout << "Digite o email: ";
+    cin.clear();
     getline(cin, email);
     cin.ignore();
 
     cout << "Digite o nome: ";
+    cin.clear();
     getline(cin, nome);
     cin.ignore();
 
     cout << "Digite a senha: ";
+    cin.clear();
     getline(cin, senha);
-    cin.ignore();
-
-    cout << "Digite a unidade do morador: ";
-    cin >> unidade;
     cin.ignore();
     // Dados adicionais para moradores
     cout << "O pagamento está em dia? (1 para Sim, 0 para Não): ";
+    cin.clear();
     cin >> pagamentoEmDia;
     cin.ignore();
-
     // Criar novo usuário
     json novoUsuario = {
         {"cpf", cpf},
@@ -55,13 +51,13 @@ void Manager::adicionarUsuarioMorador() {
         {"unidade", unidade}
     };
 
-    // Adicionar ao JSON
-    usuariosJson["usuarios"].push_back(novoUsuario);
 
     // Solicitar uma unidade válida (disponível e existente)
     while (!unidadeValida) {
         cout << "Digite o número da unidade que o usuário será cadastrado: ";
+        cin.clear();
         cin >> unidadeNum;
+        cin.ignore();
 
         for (auto& unidade : unidadesJson["unidades"]) {
             if (unidade["numero"] == unidadeNum && !unidade["ocupado"]) {
@@ -76,6 +72,9 @@ void Manager::adicionarUsuarioMorador() {
             cout << "Unidade inválida ou já ocupada. Por favor, insira uma unidade disponível." << endl;
         }
     }
+
+    // Adicionar ao JSON
+    usuariosJson["usuarios"].push_back(novoUsuario);
 
     // Salvar os JSONs atualizados no arquivo
     salvarArquivo(caminhoUnidades, unidadesJson);

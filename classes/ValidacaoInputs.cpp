@@ -53,3 +53,58 @@ string solicitarDataValida() {
     }
     } while (true);
 }
+
+bool validarCPF(long long cpf) {
+    string cpfStr = to_string(cpf);
+    if (cpfStr.length() != 11) {
+        cout << "CPF deve ter 11 dígitos." << endl;
+        return false;
+    }
+
+    int soma = 0, resto;
+    for (int i = 0; i < 9; ++i) {
+        soma += (cpfStr[i] - '0') * (10 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto == 10) resto = 0;
+    if (resto != (cpfStr[9] - '0')) {
+        cout << "CPF inválido." << endl;
+        return false;
+    }
+
+    soma = 0;
+    for (int i = 0; i < 10; ++i) {
+        soma += (cpfStr[i] - '0') * (11 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto == 10) resto = 0;
+    if (resto != (cpfStr[10] - '0')) {
+        cout << "CPF inválido." << endl;
+        return false;
+    }
+
+    return true;
+}
+
+long long solicitarCPF() {
+    long long cpf;
+    do {
+        cout << "Digite o CPF: (Somente números) ";
+        cin >> cpf;
+        if (validarCPF(cpf)) {
+            cout << "CPF válido!" << endl;
+            return cpf;
+        } else {
+            cout << "Deseja tentar novamente? (S/N): ";
+            char resposta;
+            cin >> resposta;
+            cin.ignore();
+            if (resposta == 'N' || resposta == 'n') {
+                break;
+            } else {
+                continue;
+            }
+        }
+    } while (true);
+    return 0;
+}
