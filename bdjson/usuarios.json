@@ -20,7 +20,7 @@
             "cpf": 44455566677,
             "email": "morador3",
             "nome": "Marcelo",
-            "pagamento_em_dia": false,
+            "pagamento_em_dia": true,
             "phone": "81996823515",
             "senha": "morador3",
             "tipo": "morador",
