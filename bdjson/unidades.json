@@ -1,24 +1,24 @@
 {
     "unidades": [
         {
-            "morador_cpf": 1026642860,
+            "morador_cpf": null,
             "numero": 101,
-            "ocupado": true
-        },
-        {
-            "morador_cpf": 9110833404,
-            "numero": 102,
-            "ocupado": true
-        },
-        {
-            "morador_cpf": 3514399855,
-            "numero": 201,
-            "ocupado": true
+            "ocupado": false
         },
         {
             "morador_cpf": null,
-            "numero": 202,
+            "numero": 102,
             "ocupado": false
+        },
+        {
+            "morador_cpf": null,
+            "numero": 201,
+            "ocupado": false
+        },
+        {
+            "morador_cpf": 44455566677,
+            "numero": 202,
+            "ocupado": true
         },
         {
             "morador_cpf": null,
