@@ -247,7 +247,7 @@ int main() {
                     resident->verFuncionarios();
                     break;
                 case 5:
-                    resident->verAvisos();
+                    resident->verAvisos(resident->getUnidade());
                     break;
                 case 6:
                     resident->realizarPagamento(resident->getCpf());

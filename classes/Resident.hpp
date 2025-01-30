@@ -26,8 +26,11 @@ public:
     void feedback();
     void verRegras();
     void verFuncionarios();
-    void verAvisos();
+    void verAvisos(const int& unidade);
     void realizarPagamento(const long& cpf);
+
+
+    const int& getUnidade() const;
 
     
 
