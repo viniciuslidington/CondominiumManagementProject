@@ -27,22 +27,13 @@
             "unidade": 201
         },
         {
-            "cpf": 40285634453,
-            "email": "",
-            "nome": "wdqwd",
+            "cpf": 12345678901,
+            "email": "vinicius",
+            "nome": "dede",
             "pagamento_em_dia": true,
-            "senha": "",
+            "senha": "dedede",
             "tipo": "morador",
-            "unidade": 202
-        },
-        {
-            "cpf": "40285634453",
-            "email": "jaci",
-            "nome": "jaci",
-            "pagamento_em_dia": true,
-            "senha": "jaci",
-            "tipo": "morador",
-            "unidade": 302
+            "unidade": 1001
         }
     ]
 }

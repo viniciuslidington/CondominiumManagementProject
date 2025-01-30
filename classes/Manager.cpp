@@ -29,7 +29,7 @@ T obterEntradaValida(const string& mensagem) {
 }
 
 // Função auxiliar para buscar unidade disponível
-bool buscarUnidadeDisponivel(json& unidadesJson, int unidadeNum, string cpf) {
+bool buscarUnidadeDisponivel(json& unidadesJson, int unidadeNum, long cpf) {
     auto it = find_if(unidadesJson["unidades"].begin(), unidadesJson["unidades"].end(),
         [unidadeNum](const json& unidade) {
             return unidade["numero"] == unidadeNum && !unidade["ocupado"];
@@ -45,18 +45,24 @@ bool buscarUnidadeDisponivel(json& unidadesJson, int unidadeNum, string cpf) {
 
 // Implementação da função de adicionar morador
 void Manager::adicionarUsuarioMorador() {
-    string email, nome, senha, cpf;
+    string email, nome, senha;
+    long long cpf;
     int unidadeNum;
     bool pagamentoEmDia, unidadeValida = false;
 
     json usuariosJson = carregarArquivo("bdjson/usuarios.json");
     json unidadesJson = carregarArquivo("bdjson/unidades.json");
 
-    cout << "Digite o CPF: ";
-    cin.ignore(); // Limpa buffer antes de `getline`
-    getline(cin, cpf);
+    cpf = solicitarCPF();
+    if (cpf != 0) {
+        cout << "CPF cadastrado com sucesso: " << cpf << endl;
+    } else {
+        cout << "Nenhum CPF foi cadastrado.\n";
+        return;
+    }
 
     cout << "Digite o email: ";
+    cin.ignore();
     getline(cin, email);
 
     cout << "Digite o nome: ";
