@@ -1,5 +1,8 @@
 #include "Manager.hpp"
 #include "ValidacaoInputs.hpp"
+#include <iostream>
+
+using namespace std;
 
 Manager::Manager(const string& name, const string& email, const string& phone, const string& type, const string& senha, const long& cpf)
     : User(name, email, phone, type, senha, cpf) {}
@@ -7,40 +10,39 @@ Manager::Manager(const string& name, const string& email, const string& phone, c
 
 void Manager::adicionarUsuarioMorador() {
     string caminhoUsuarios = "bdjson/usuarios.json"; // Caminho do arquivo
+    string caminhoUnidades = "bdjson/unidades.json";
     json usuariosJson = carregarArquivo(caminhoUsuarios); // Carregando o arquivo dos usuários
+    json unidadesJson = carregarArquivo(caminhoUnidades);
+    string email, nome, senha;
+    int unidadeNum, unidade;
+    long long cpf;
+    bool unidadeValida = false;
+    bool pagamentoEmDia = true;
 
     // Solicitar informações do novo usuário
-    std::cout << "Digite o CPF: ";
-    long long cpf;
-    std::cin >> cpf;
-    std::cin.ignore(); // Limpa o buffer
+    cout << "Digite o CPF: ";
+    cin >> cpf;
+    cin.ignore(); // Limpa o buffer
 
-    std::cout << "Digite o email: ";
-    std::string email;
-    std::getline(std::cin, email);
-    std::cin.ignore();
+    cout << "Digite o email: ";
+    getline(cin, email);
+    cin.ignore();
 
-    std::cout << "Digite o nome: ";
-    std::string nome;
-    std::getline(std::cin, nome);
-    std::cin.ignore();
+    cout << "Digite o nome: ";
+    getline(cin, nome);
+    cin.ignore();
 
-    std::cout << "Digite a senha: ";
-    std::string senha;
-    std::getline(std::cin, senha);
-    std::cin.ignore();
+    cout << "Digite a senha: ";
+    getline(cin, senha);
+    cin.ignore();
 
-    std::string tipo = "morador";
-
-    std::cout << "Digite a unidade do morador: ";
-    int unidade;
-    std::cin >> unidade;
-    std::cin.ignore();
+    cout << "Digite a unidade do morador: ";
+    cin >> unidade;
+    cin.ignore();
     // Dados adicionais para moradores
-    bool pagamentoEmDia = true;
-    std::cout << "O pagamento está em dia? (1 para Sim, 0 para Não): ";
-    std::cin >> pagamentoEmDia;
-    std::cin.ignore();
+    cout << "O pagamento está em dia? (1 para Sim, 0 para Não): ";
+    cin >> pagamentoEmDia;
+    cin.ignore();
 
     // Criar novo usuário
     json novoUsuario = {
@@ -48,7 +50,7 @@ void Manager::adicionarUsuarioMorador() {
         {"email", email},
         {"nome", nome},
         {"senha", senha},
-        {"tipo", tipo},
+        {"tipo", "morador"},
         {"pagamento_em_dia", pagamentoEmDia},
         {"unidade", unidade}
     };
@@ -56,16 +58,10 @@ void Manager::adicionarUsuarioMorador() {
     // Adicionar ao JSON
     usuariosJson["usuarios"].push_back(novoUsuario);
 
-    string caminhoUnidades = "bdjson/unidades.json";
-    json unidadesJson = carregarArquivo(caminhoUnidades);
-
-    int unidadeNum;
-    bool unidadeValida = false;
-
     // Solicitar uma unidade válida (disponível e existente)
     while (!unidadeValida) {
-        std::cout << "Digite o número da unidade que o usuário será cadastrado: ";
-        std::cin >> unidadeNum;
+        cout << "Digite o número da unidade que o usuário será cadastrado: ";
+        cin >> unidadeNum;
 
         for (auto& unidade : unidadesJson["unidades"]) {
             if (unidade["numero"] == unidadeNum && !unidade["ocupado"]) {
@@ -77,7 +73,7 @@ void Manager::adicionarUsuarioMorador() {
         }
 
         if (!unidadeValida) {
-            std::cout << "Unidade inválida ou já ocupada. Por favor, insira uma unidade disponível." << std::endl;
+            cout << "Unidade inválida ou já ocupada. Por favor, insira uma unidade disponível." << endl;
         }
     }
 
@@ -85,27 +81,24 @@ void Manager::adicionarUsuarioMorador() {
     salvarArquivo(caminhoUnidades, unidadesJson);
     salvarArquivo(caminhoUsuarios, usuariosJson);
 
-    std::cout << "Usuário " << nome << " cadastrado com sucesso na unidade " << unidadeNum << "!" << std::endl;
+    cout << "Usuário " << nome << " cadastrado com sucesso na unidade " << unidadeNum << "!" << endl;
 }
 
 void Manager::removerUsuarioMorador() {
     string caminhoUsuarios = "bdjson/usuarios.json"; // Caminho do arquivo dos usuários
-    json usuariosJson = carregarArquivo(caminhoUsuarios); // Carregar os dados dos usuários
-
     string caminhoUnidades = "bdjson/unidades.json"; // Caminho do arquivo das unidades
+    json usuariosJson = carregarArquivo(caminhoUsuarios); // Carregar os dados dos usuários
     json unidadesJson = carregarArquivo(caminhoUnidades); // Carregar os dados das unidades
-
-    std::cout << "Digite o CPF do morador que deseja remover: ";
     long long cpf;
-    std::cin >> cpf;
-
     bool usuarioEncontrado = false;
+
+    cout << "Digite o CPF do morador que deseja remover: ";
+    cin >> cpf;
 
     // Procurar o usuário pelo CPF no JSON de usuários
     for (auto it = usuariosJson["usuarios"].begin(); it != usuariosJson["usuarios"].end(); ++it) {
         if ((*it)["cpf"] == cpf) {
             usuarioEncontrado = true;
-
             // Remover o morador do JSON de unidades
             for (auto& unidade : unidadesJson["unidades"]) {
                 if (unidade["morador_cpf"] == cpf) {
@@ -114,7 +107,6 @@ void Manager::removerUsuarioMorador() {
                     break;
                 }
             }
-
             // Remover o usuário do JSON de usuários
             usuariosJson["usuarios"].erase(it);
             break;
@@ -125,21 +117,18 @@ void Manager::removerUsuarioMorador() {
         // Salvar os JSONs atualizados nos arquivos
         salvarArquivo(caminhoUsuarios, usuariosJson);
         salvarArquivo(caminhoUnidades, unidadesJson);
-        std::cout << "Usuário removido com sucesso!" << std::endl;
+        cout << "Usuário removido com sucesso!" << endl;
     } else {
-        std::cout << "Usuário com o CPF " << cpf << " não foi encontrado." << std::endl;
+        cout << "Usuário com o CPF " << cpf << " não foi encontrado." << endl;
     }
 }
 
-
-
 void Manager::adicionarNovoFuncionario() {
-    string nome, turno, funcao, caminhoCondominio;
-    json condominioJson;
+    string caminhoCondominio = "bdjson/condominio.json";
+    string nome, turno, funcao;
+    json condominioJson = carregarArquivo(caminhoCondominio);
     int cod_funcionario;
 
-    caminhoCondominio = "bdjson/condominio.json";
-    condominioJson = carregarArquivo(caminhoCondominio);
 
     cin.ignore();
     cout << "Digite o cod funcionario: ";
@@ -168,15 +157,13 @@ void Manager::adicionarNovoFuncionario() {
 }
 
 void Manager::adicionarAvisos() {
-    string aviso, obs, caminhoCondominio;
-    int destinatario = 0; // Valor padrão do destinatário
-    bool possuiAviso, destinatarioEspecifico;
-
-    caminhoCondominio = "bdjson/condominio.json";
-    json condominioJson = carregarArquivo(caminhoCondominio);
-
+    string caminhoCondominio = "bdjson/condominio.json";
     string caminhoUnidades = "bdjson/unidades.json";
+    string aviso, obs;
+    json condominioJson = carregarArquivo(caminhoCondominio);
     json unidadesJson = carregarArquivo(caminhoUnidades);
+    int destinatario = 0; // Valor padrão do destinatário
+    bool possuiAviso, destinatarioEspecifico, unidadeValida = false;
 
     // Solicitar o texto do aviso
     cin.ignore();
@@ -200,8 +187,6 @@ void Manager::adicionarAvisos() {
     cin >> destinatarioEspecifico;
 
     if (destinatarioEspecifico) {
-        bool unidadeValida = false;
-
         while (!unidadeValida) {
             cout << "Digite o número da unidade destinatária: ";
             cin >> destinatario;
@@ -213,7 +198,6 @@ void Manager::adicionarAvisos() {
                     break;
                 }
             }
-
             if (!unidadeValida) {
                 cout << "Unidade não encontrada no banco de dados. Por favor, insira uma unidade válida." << endl;
             }
@@ -236,19 +220,15 @@ void Manager::adicionarAvisos() {
     cout << "Aviso adicionado com sucesso!" << endl;
 }
 
-
 void Manager::reservarAreaComumManager() {
-    string areaReservada, dataReserva, caminhoUsuarios, caminhoAlugueis;
-    json alugueisJson, usuariosJson;
+    string caminhoUsuarios = "bdjson/unidades.json";
+    string caminhoAlugueis = "bdjson/condominio.json";
+    json alugueisJson = carregarArquivo(caminhoAlugueis);
+    json usuariosJson = carregarArquivo(caminhoUsuarios);
+    string areaReservada, dataReserva;
     int codigoArea, numero_apt;
     bool cpfValido = false;
     long long cpfMorador;
-
-    caminhoUsuarios = "bdjson/unidades.json";
-    caminhoAlugueis = "bdjson/condominio.json";
-
-    alugueisJson = carregarArquivo(caminhoAlugueis);
-    usuariosJson = carregarArquivo(caminhoUsuarios);
 
     cout << "Digite o CPF do morador que está reservando o espaço: ";
     cin >> cpfMorador;
@@ -321,16 +301,7 @@ void Manager::reservarAreaComumManager() {
 
 void Manager::resgistraServico() {
     string caminhoCondominio = "bdjson/condominio.json";
-
-    // Tenta carregar o arquivo JSON
-    json servicosJson;
-    try {
-        servicosJson = carregarArquivo(caminhoCondominio);
-    } catch (const exception &e) {
-        cerr << "Erro ao carregar o arquivo JSON: " << e.what() << endl;
-        return;
-    }
-
+    json servicosJson = carregarArquivo(caminhoCondominio);
     string nomeServico, empresa, dataInicio, dataFim;
     float valor;
 
@@ -380,13 +351,9 @@ void Manager::resgistraServico() {
     // Adiciona o novo serviço ao array de serviços
     servicosJson["servicos"].push_back(novoServico);
 
-    // Tenta salvar o arquivo JSON atualizado
-    try {
-        salvarArquivo(caminhoCondominio, servicosJson);
-        cout << "Serviço registrado com sucesso!" << endl;
-    } catch (const exception &e) {
-        cerr << "Erro ao salvar o arquivo JSON: " << e.what() << endl;
-    }
+
+    salvarArquivo(caminhoCondominio, servicosJson);
+    cout << "Serviço registrado com sucesso!" << endl;
 }
 
 
@@ -423,12 +390,11 @@ void Manager::mostrarServicos() {
 void Manager::mostrarAvisos() {
     string caminhoCondominio = "bdjson/condominio.json";
     json historicoJson = carregarArquivo(caminhoCondominio);
+    bool encontrouAviso = false;
 
     cout << "\nAvisos: " << endl;
 
     if (historicoJson.contains("avisos")) {
-        bool encontrouAviso = false;
-
         for (const auto& aviso : historicoJson["avisos"]) {
             if (aviso.contains("destinatario") && aviso["destinatario"] == 0) {
                 cout << "Aviso: " << aviso["aviso"]
@@ -436,7 +402,6 @@ void Manager::mostrarAvisos() {
                 encontrouAviso = true;
             }
         }
-
         if (!encontrouAviso) {
             cout << "Nenhum aviso para o destinatário 0000 encontrado." << endl;
         }
@@ -444,7 +409,6 @@ void Manager::mostrarAvisos() {
         cout << "Nenhum aviso encontrado." << endl;
     }
 }
-
 
 void Manager::mostrarReservas() {
     string caminhoCondominio = "bdjson/condominio.json";
@@ -512,5 +476,4 @@ void Manager::mostrarHistorico() {
         cout << "Nenhum serviço encontrado." << endl;
     }
 }
-
 
