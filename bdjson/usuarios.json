@@ -36,13 +36,13 @@
             "unidade": 202
         },
         {
-            "cpf": 0,
-            "email": "yan@gmail.com",
-            "nome": "Yan",
-            "pagamento_em_dia": false,
-            "senha": "123",
+            "cpf": "40285634453",
+            "email": "jaci",
+            "nome": "jaci",
+            "pagamento_em_dia": true,
+            "senha": "jaci",
             "tipo": "morador",
-            "unidade": 383358584
+            "unidade": 302
         }
     ]
 }
