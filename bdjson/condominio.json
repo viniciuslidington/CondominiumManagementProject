@@ -103,6 +103,12 @@
             "data_reservada": "24-09-22111",
             "nome_morador": "teste",
             "unidade": 404
+        },
+        {
+            "area_reservada": "Churrasqueira",
+            "data_reservada": "30-01-2025",
+            "nome_morador": "teste",
+            "unidade": 404
         }
     ],
     "servicos": [
