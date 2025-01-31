@@ -40,7 +40,7 @@ unique_ptr<User> login() {
         cout << "||           LOGIN               ||\n";
         cout << "===================================\n";
         cout << "Digite seu email: ";
-        cin >> email;
+        getline(cin >> ws, email);
 
         bool emailEncontrado = false;
         for (const auto& usuario : usuariosJson["usuarios"]) {
@@ -48,7 +48,7 @@ unique_ptr<User> login() {
                 emailEncontrado = true;
 
                 cout << "Digite sua senha: ";
-                cin >> senha;
+                getline(cin >> ws, senha);
 
                 if (usuario["senha"] == senha) {
                     string tipo = usuario["tipo"];
@@ -108,7 +108,8 @@ int main() {
             cout << "|| Escolha uma opção:             ||\n";
             cout << "|| 1. Hub Moradores/Trabalhadores ||\n";
             cout << "|| 2. Hub Ações Condominio        ||\n";
-            cout << "|| 3. Sair do Portal              ||\n";
+            cout << "|| 3. Exibir Informações          ||\n";
+            cout << "|| 4. Sair do Portal              ||\n";
             cout << "===================================\n";
             cout << "Digite sua escolha: ";
             cin >> *choicePtr;
@@ -130,7 +131,8 @@ int main() {
                     cout << "|| 2. Remover Morador            ||\n";
                     cout << "|| 3. Adicionar Trabalhador      ||\n";
                     cout << "|| 4. Remover Trabalhador        ||\n";
-                    cout << "|| 5. Voltar                     ||\n";
+                    cout << "|| 5. Ver FeedBacks              ||\n";
+                    cout << "|| 6. Voltar                     ||\n";
                     cout << "===================================\n";
                     cout << "|| Escolha uma opção: ";
                     cin >> *choicePtr;
@@ -147,10 +149,12 @@ int main() {
                             manager->adicionarNovoFuncionario();
                             break;
                         case 4:
-                            cout << "Função Remover Funcionário\n";
-                            //manager->removerFuncionario(); // Função a ser implementada
+                            manager->removerFuncionario();
                             break;
                         case 5:
+                            manager->verFeedback();
+                            break;
+                        case 6:
                             cout << "Saindo do Hub Moradores/Trabalhadores...\n";
                             break; // Volta ao menu do gestor
                         default:
@@ -207,8 +211,10 @@ int main() {
                         break;
                     }
                     break;
-                    
                 case 3:
+                    manager->exibirInformacoes();
+                    break;    
+                case 4:
                     cout << "Saindo do Portal\n";
                     return 0; // Sai do menu do gestor
                 default:
@@ -228,7 +234,8 @@ int main() {
             cout << "|| 4. Ver funcionários            ||\n";
             cout << "|| 5. Ver avisos                  ||\n";
             cout << "|| 6. Realizar Pagamento          ||\n";
-            cout << "|| 7. Sair do Portal              ||\n";
+            cout << "|| 7. Exibir Informações          ||\n";
+            cout << "|| 8. Sair do Portal              ||\n";
             cout << "===================================\n";
             cout << "Digite sua escolha: ";
             cin >> *choicePtr;
@@ -253,6 +260,9 @@ int main() {
                     resident->realizarPagamento();
                     break;
                 case 7:
+                    resident->exibirInformacoes();
+                    break;
+                case 8:
                     cout << "\n===================================\n";
                     cout << "|| Saindo do menu do morador...  ||\n";
                     cout << "===================================\n";

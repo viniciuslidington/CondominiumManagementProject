@@ -14,6 +14,11 @@
             "aviso": "Elevadores indisponiveis amanha as 23:00",
             "destinatario": 0,
             "observacoes": "Manutencao"
+        },
+        {
+            "aviso": "aviso teste",
+            "destinatario": 0,
+            "observacoes": ""
         }
     ],
     "condominio": {
@@ -55,27 +60,21 @@
         {
             "feedback": "O Sindico estava lindo hoje de manha!",
             "morador": "Anônimo"
+        },
+        {
+            "feedback": "Adorei o sistema de voces. Obrigado",
+            "morador": "Marcelo"
         }
     ],
     "funcionarios": [
         {
             "cod_funcionario": 1,
-            "funcao": "porteiro",
-            "nome": "joao",
-            "turno": "manha"
+            "funcao": "1",
+            "nome": "1",
+            "turno": "1"
         }
     ],
     "reservas": [
-        {
-            "area_reservada": "Salao de Festas",
-            "data_reservada": "21-02-2025",
-            "nome_morador": "fefe"
-        },
-        {
-            "area_reservada": "Salao de Festas",
-            "data_reservada": "01-01-2025",
-            "nome_morador": "teste"
-        },
         {
             "area_reservada": "Salao de Festas",
             "data_reservada": "90-90-1987",
@@ -95,44 +94,8 @@
             "unidade": 404
         },
         {
-            "area_reservada": "Salao de Festas",
-            "data_reservada": "434",
-            "nome_morador": "teste",
-            "unidade": 404
-        },
-        {
-            "area_reservada": "Playground",
-            "data_reservada": "23-09-2030",
-            "nome_morador": "teste",
-            "unidade": 404
-        },
-        {
-            "area_reservada": "Salao de Festas",
-            "data_reservada": "24-09-22111",
-            "nome_morador": "teste",
-            "unidade": 404
-        },
-        {
-            "area_reservada": "Churrasqueira",
-            "data_reservada": "30-01-2025",
-            "nome_morador": "teste",
-            "unidade": 404
-        },
-        {
-            "area_reservada": "Sauna",
-            "data_reservada": "24-03-2025",
-            "nome_morador": "Marcelo",
-            "unidade": 201
-        },
-        {
-            "area_reservada": "Playground",
-            "data_reservada": "31-02-2025",
-            "nome_morador": "Marcelo",
-            "unidade": 201
-        },
-        {
-            "area_reservada": "Playground",
-            "data_reservada": "28-12-2026",
+            "area_reservada": "Salão de Festas",
+            "data_reservada": "18-02-2025",
             "nome_morador": "Marcelo",
             "unidade": 201
         }
@@ -172,6 +135,13 @@
             "empresa": "PoolTech",
             "nome": "Limpeza da piscina",
             "valor": 120.0
+        },
+        {
+            "data_fim": "12-02-2025",
+            "data_inicio": "12-02-2025",
+            "empresa": "teste",
+            "nome": "teste",
+            "valor": 1.0
         }
     ]
 }

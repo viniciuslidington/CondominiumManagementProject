@@ -16,6 +16,7 @@ public:
     void adicionarUsuarioMorador();
     void removerUsuarioMorador();
     void adicionarNovoFuncionario();
+    void removerFuncionario();
     void adicionarAvisos();
     void reservarAreaComumManager();
     void mostrarHistorico(); // Histórico de eventos do condomínio/eventos/avisos
@@ -23,6 +24,7 @@ public:
     void mostrarServicos();
     void mostrarAvisos();
     void mostrarReservas();
+    void verFeedback();
     
 };
 

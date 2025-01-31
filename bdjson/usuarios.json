@@ -2,8 +2,8 @@
     "usuarios": [
         {
             "cpf": 2,
-            "email": "teste1",
-            "nome": "teste1",
+            "email": "teste",
+            "nome": "teste",
             "phone": "81996823515",
             "senha": "teste1",
             "tipo": "gestor"
@@ -18,22 +18,13 @@
         },
         {
             "cpf": 44455566677,
-            "email": "morador3",
+            "email": "teste1",
             "nome": "Marcelo",
             "pagamento_em_dia": true,
             "phone": "81996823515",
-            "senha": "morador3",
+            "senha": "teste1",
             "tipo": "morador",
             "unidade": 201
-        },
-        {
-            "cpf": 12345678901,
-            "email": "vinicius",
-            "nome": "dede",
-            "pagamento_em_dia": true,
-            "senha": "dedede",
-            "tipo": "morador",
-            "unidade": 1001
         }
     ]
 }

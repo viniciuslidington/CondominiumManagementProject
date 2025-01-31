@@ -22,9 +22,13 @@ void User::setCpf(const long& cpf) { user_cpf = cpf; }
 
 // Método virtual
 void User::exibirInformacoes() const {
-    cout << "Nome: " << user_name << endl;
-    cout << "Email: " << user_email << endl;
+    cout << "=============================" << endl;
+    cout << "       Informações do Usuário" << endl;
+    cout << "=============================" << endl;
+    cout << "Nome    : " << user_name << endl;
+    cout << "Email   : " << user_email << endl;
     cout << "Telefone: " << user_phone << endl;
-    cout << "Tipo: " << user_type << endl;
-    cout << "CPF: " << user_cpf << endl;
+    cout << "Tipo    : " << user_type << endl;
+    cout << "CPF     : " << user_cpf << endl;
+    cout << "=============================" << endl;
 }

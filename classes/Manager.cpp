@@ -111,8 +111,7 @@ void Manager::removerUsuarioMorador() {
     long long cpf;
     bool usuarioEncontrado = false;
 
-    cout << "Digite o CPF do morador que deseja remover: ";
-    cin >> cpf;
+    cpf = solicitarCPF();
 
     // Procurar o usuário pelo CPF no JSON de usuários
     for (auto it = usuariosJson["usuarios"].begin(); it != usuariosJson["usuarios"].end(); ++it) {
@@ -175,6 +174,31 @@ void Manager::adicionarNovoFuncionario() {
     cout << "Funcionario " << nome << " adicionado com sucesso!" << endl;
 }
 
+void Manager::removerFuncionario() {
+    string caminhoCondominio = "bdjson/condominio.json";
+    json condominioJson = carregarArquivo(caminhoCondominio);
+    int cod_funcionario;
+    bool funcionarioEncontrado = false;
+
+    cout << "Digite o código do funcionário que deseja remover: ";
+    cin >> cod_funcionario;
+
+    for (auto it = condominioJson["funcionarios"].begin(); it != condominioJson["funcionarios"].end(); ++it) {
+        if ((*it)["cod_funcionario"] == cod_funcionario) {
+            funcionarioEncontrado = true;
+            condominioJson["funcionarios"].erase(it);
+            break;
+        }
+    }
+
+    if (funcionarioEncontrado) {
+        salvarArquivo(caminhoCondominio, condominioJson);
+        cout << "Funcionário removido com sucesso!" << endl;
+    } else {
+        cout << "Funcionário com o código " << cod_funcionario << " não foi encontrado." << endl;
+    }
+}
+
 void Manager::adicionarAvisos() {
     string caminhoCondominio = "bdjson/condominio.json";
     string caminhoUnidades = "bdjson/unidades.json";
@@ -198,7 +222,7 @@ void Manager::adicionarAvisos() {
         cout << "Digite a OBSERVAÇÃO do aviso: ";
         getline(cin, obs);
     } else {
-        obs = "";
+        obs = nullptr;
     }
 
     // Verificar se o usuário deseja informar um destinatário específico
@@ -244,20 +268,20 @@ void Manager::reservarAreaComumManager() {
     string caminhoAlugueis = "bdjson/condominio.json";
     json alugueisJson = carregarArquivo(caminhoAlugueis);
     json usuariosJson = carregarArquivo(caminhoUsuarios);
-    string areaReservada, dataReserva;
+    string areaReservada, dataReserva, nome_morador;
     int codigoArea, numero_apt;
     bool cpfValido = false;
     long long cpfMorador;
 
-    cout << "Digite o CPF do morador que está reservando o espaço: ";
-    cin >> cpfMorador;
-    cin.ignore();
+    cout << "Digite o CPF do morador que está reservando o espaço:\n";
+    cpfMorador = solicitarCPF();
     // Verificar se o CPF do morador existe no arquivo de usuários
 
     for (const auto& usuario : usuariosJson["unidades"]) {
         if (usuario["morador_cpf"] == cpfMorador) {
             cpfValido = true;
-            numero_apt = usuario["numero"];
+            numero_apt = usuario["unidade"];
+            nome_morador = usuario["nome"];
             break;
         }
     }
@@ -267,12 +291,16 @@ void Manager::reservarAreaComumManager() {
         return;
     }
 
-    cout << "Digite o código da área que deseja reservar: \n";
-    cout << "1: Salao de Festas \n";
-    cout << "2: Churrasqueira \n";
-    cout << "3: Sauna \n";
-    cout << "4: Playgroud \n";
-    cout << "\nDigite o código da área que deseja reservar:  \n";
+    cout << "=============================\n";
+    cout << "   Reservar Área Comum\n";
+    cout << "=============================\n";
+    cout << "Digite o código da área que deseja reservar:\n";
+    cout << "1: Salão de Festas\n";
+    cout << "2: Churrasqueira\n";
+    cout << "3: Sauna\n";
+    cout << "4: Playground\n";
+    cout << "=============================\n";
+    cout << "Digite o código da área que deseja reservar: ";
 
     cin >> codigoArea;
     cin.ignore();
@@ -295,26 +323,45 @@ void Manager::reservarAreaComumManager() {
             return;
     }
 
-    dataReserva = solicitarDataValida();
+    while (true) {
+        dataReserva = solicitarDataValida();
 
-    // Verificar se a data já está reservada para a área escolhida
-    for (const auto& reserva : alugueisJson["reservas"]) {
-        if (reserva["area_reservada"] == areaReservada && reserva["data_reserva"] == dataReserva) {
-            cout << "A área já está reservada para essa data. Por favor, escolha outra data." << endl;
-            return;
+        // Verificar se a data já está reservada para a área escolhida
+        bool dataDisponivel = true;
+        for (const auto& reserva : alugueisJson["reservas"]) {
+            if (reserva["area_reservada"] == areaReservada && reserva["data_reservada"] == dataReserva) {
+                dataDisponivel = false;
+                break;
+            }
+        }
+
+        if (dataDisponivel) {
+            break;
+        } else {
+            cout << "A área já está reservada para essa data. Deseja tentar outra data? (1 para Sim, 0 para Não): ";
+            int escolha;
+            cin >> escolha;
+            if (escolha == 0) {
+                cout << "Reserva cancelada." << endl;
+                return;
+            }
         }
     }
 
     json novoAluguel = {
-        {"numero_apt", numero_apt},
+        {"nome_morador", nome_morador},
+        {"unidade", numero_apt},
         {"area_reservada", areaReservada},
         {"data_reservada", dataReserva}
     };
 
+
     alugueisJson["reservas"].push_back(novoAluguel);
     salvarArquivo(caminhoAlugueis, alugueisJson);
 
-    cout << "Reserva registrada com sucesso!" << endl;
+    cout << "\n===================================\n";
+    cout << "|| Reserva registrada com sucesso! ||\n";
+    cout << "===================================\n";
 }
 
 
@@ -411,7 +458,9 @@ void Manager::mostrarAvisos() {
     json historicoJson = carregarArquivo(caminhoCondominio);
     bool encontrouAviso = false;
 
-    cout << "\nAvisos: " << endl;
+    cout << "\n====================\n";
+    cout << "     Avisos\n";
+    cout << "====================\n";
 
     if (historicoJson.contains("avisos")) {
         for (const auto& aviso : historicoJson["avisos"]) {
@@ -422,11 +471,12 @@ void Manager::mostrarAvisos() {
             }
         }
         if (!encontrouAviso) {
-            cout << "Nenhum aviso para o destinatário 0000 encontrado." << endl;
+            cout << "Nenhum aviso para o destinatário 0000 encontrado.\n";
         }
     } else {
-        cout << "Nenhum aviso encontrado." << endl;
+        cout << "Nenhum aviso encontrado.\n";
     }
+    cout << "====================\n";
 }
 
 void Manager::mostrarReservas() {
@@ -438,8 +488,9 @@ void Manager::mostrarReservas() {
     if (historicoJson.contains("reservas")) {
         for (const auto& reserva : historicoJson["reservas"]) {
             cout << "Área: " << reserva["area_reservada"]
-                << ", Data: " << reserva["data_inicio"]
-                << ", Apartamento: " << reserva["numero_apt"] << endl;
+                << ", Data: " << reserva["data_reservada"]
+                << ", Reserva no Nome de: " << reserva["nome_morador"]
+                <<", Unidade: " << reserva["unidade"] << endl;
         }
     } else {
         cout << "Nenhuma reserva encontrada." << endl;
@@ -456,10 +507,11 @@ void Manager::mostrarHistorico() {
     // Verificando e imprimindo as reservas
     if (historicoJson.contains("reservas")) {
         for (const auto& reserva : historicoJson["reservas"]) {
-            if (reserva.contains("area_reservada") && reserva.contains("data_inicio") && reserva.contains("numero_apt")) {
+            if (reserva.contains("area_reservada") && reserva.contains("data_reservada") && reserva.contains("unidade")) {
                 cout << "Área: " << reserva["area_reservada"]
-                    << ", Data: " << reserva["data_inicio"]
-                    << ", Apartamento: " << reserva["numero_apt"] << endl;
+                    << ", Data: " << reserva["data_reservada"]
+                    << ", Unidade: " << reserva["unidade"]
+                    << ", Nome do Morador: " << reserva["nome_morador"] << endl;
             } else {
                 cout << "Informações de reserva incompletas." << endl;
             }
@@ -471,9 +523,10 @@ void Manager::mostrarHistorico() {
     cout << "\nAvisos:" << endl;
     if (historicoJson.contains("avisos")) {
         for (const auto& aviso : historicoJson["avisos"]) {
-            if (aviso.contains("aviso") && aviso.contains("data") && aviso.contains("observacoes")) {
+            if (aviso.contains("aviso") && aviso.contains("observacoes")) {
                 cout << "Aviso: " << aviso["aviso"]
-                    << ", Observações: " << aviso["observacoes"] << endl;
+                    << ", Observações: " << aviso["observacoes"]
+                    << ", Destinatário: " << aviso["destinatario"] << endl;
             }
         }
     } else {
@@ -493,6 +546,26 @@ void Manager::mostrarHistorico() {
         }
     } else {
         cout << "Nenhum serviço encontrado." << endl;
+    }
+}
+
+void Manager::verFeedback() {
+    string caminhoFeedbacks = "bdjson/condominio.json";
+    json feedbacksJson = carregarArquivo(caminhoFeedbacks);
+
+    cout << "\nFeedbacks recebidos:" << endl;
+
+    if (feedbacksJson.contains("feedbacks")) {
+        for (const auto& feedback : feedbacksJson["feedbacks"]) {
+            if (feedback.contains("feedback") && feedback.contains("morador")) {
+                cout << "Feedback: " << feedback["feedback"]
+                    << ", Morador: " << feedback["morador"] << endl;
+            } else {
+                cout << "Informações de feedback incompletas." << endl;
+            }
+        }
+    } else {
+        cout << "Nenhum feedback encontrado." << endl;
     }
 }
 
