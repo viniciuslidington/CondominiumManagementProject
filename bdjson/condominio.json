@@ -6,20 +6,11 @@
             "observacoes": ""
         },
         {
-            "aviso": "Elevadores estarao indisponiveis amanha as 23:00",
-            "destinatario": 0,
-            "observacoes": ""
-        },
-        {
             "aviso": "Elevadores indisponiveis amanha as 23:00",
             "destinatario": 0,
             "observacoes": "Manutencao"
-        },
-        {
-            "aviso": "aviso teste",
-            "destinatario": 0,
-            "observacoes": ""
         }
+        
     ],
     "condominio": {
         "endereco_predio": "Rua das Palmeiras, 123",
@@ -35,23 +26,7 @@
     "feedbacks": [
         {
             "feedback": "Porteiro da noite muito chato e dorme durante o trabalho",
-            "morador": "teste"
-        },
-        {
-            "feedback": "teste 1",
-            "morador": "Anônimo"
-        },
-        {
-            "feedback": "teste 2",
-            "morador": "teste"
-        },
-        {
-            "feedback": "teste 3",
-            "morador": "teste"
-        },
-        {
-            "feedback": "meu deus funcionou",
-            "morador": "Anônimo"
+            "morador": "Fernando"
         },
         {
             "feedback": "Eu AMEI a Sauna! Muito boa e gostosinha!",
@@ -69,29 +44,35 @@
     "funcionarios": [
         {
             "cod_funcionario": 1,
-            "funcao": "1",
-            "nome": "1",
-            "turno": "1"
+            "funcao": "Sindico",
+            "nome": "José Santos",
+            "turno": "Diurno"
+        },
+        {
+            "cod_funcionario": 2,
+            "funcao": "Porteiro",
+            "nome": "Carlos Silva",
+            "turno": "Noturno"
+        },
+        {
+            "cod_funcionario": 3,
+            "funcao": "Zelador",
+            "nome": "Ana Souza",
+            "turno": "Diurno"
+        },
+        {
+            "cod_funcionario": 4,
+            "funcao": "Faxineiro",
+            "nome": "João Pereira",
+            "turno": "Vespertino"
         }
     ],
     "reservas": [
         {
             "area_reservada": "Salao de Festas",
-            "data_reservada": "90-90-1987",
+            "data_reservada": "24-09-2025",
             "nome_morador": "teste",
-            "unidade": 404
-        },
-        {
-            "area_reservada": "Playground",
-            "data_reservada": "4",
-            "nome_morador": "teste",
-            "unidade": 404
-        },
-        {
-            "area_reservada": "Salao de Festas",
-            "data_reservada": "24-09-2001",
-            "nome_morador": "teste",
-            "unidade": 404
+            "unidade": 101
         },
         {
             "area_reservada": "Salão de Festas",
@@ -121,27 +102,6 @@
             "empresa": "Construtora ABC",
             "nome": "Reforma de Estrutura",
             "valor": 10000.0
-        },
-        {
-            "data_fim": "025-12-28",
-            "data_inicio": "impet",
-            "empresa": "anutencao salao de festas",
-            "nome": "",
-            "valor": 25.0
-        },
-        {
-            "data_fim": "2024-12-30",
-            "data_inicio": "2024-12-29",
-            "empresa": "PoolTech",
-            "nome": "Limpeza da piscina",
-            "valor": 120.0
-        },
-        {
-            "data_fim": "12-02-2025",
-            "data_inicio": "12-02-2025",
-            "empresa": "teste",
-            "nome": "teste",
-            "valor": 1.0
         }
     ]
 }

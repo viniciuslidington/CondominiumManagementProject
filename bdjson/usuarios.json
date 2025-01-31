@@ -1,14 +1,6 @@
 {
     "usuarios": [
         {
-            "cpf": 2,
-            "email": "teste",
-            "nome": "teste",
-            "phone": "81996823515",
-            "senha": "teste1",
-            "tipo": "gestor"
-        },
-        {
             "cpf": 12345678911,
             "email": "admin@condominio.com",
             "nome": "Administrador",
