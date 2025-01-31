@@ -45,7 +45,7 @@ bool buscarUnidadeDisponivel(json& unidadesJson, int unidadeNum, long cpf) {
 
 // Implementação da função de adicionar morador
 void Manager::adicionarUsuarioMorador() {
-    string email, nome, senha;
+    string email, nome, senha, phone;
     long long cpf;
     int unidadeNum;
     bool pagamentoEmDia, unidadeValida = false;
@@ -71,6 +71,10 @@ void Manager::adicionarUsuarioMorador() {
     cout << "Digite a senha: ";
     getline(cin, senha);
 
+    cout << "Digite o telefone: ";
+    getline(cin, phone);
+
+
     pagamentoEmDia = obterEntradaValida<bool>("O pagamento está em dia? (1 para Sim, 0 para Não): ");
 
     json novoUsuario = {
@@ -79,7 +83,8 @@ void Manager::adicionarUsuarioMorador() {
         {"nome", nome},
         {"senha", senha},
         {"tipo", "morador"},
-        {"pagamento_em_dia", pagamentoEmDia}
+        {"pagamento_em_dia", pagamentoEmDia},
+        {"phone", phone},
     };
 
     // Solicita uma unidade válida

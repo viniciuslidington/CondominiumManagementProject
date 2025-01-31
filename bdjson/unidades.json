@@ -11,9 +11,9 @@
             "ocupado": false
         },
         {
-            "morador_cpf": null,
+            "morador_cpf": 12345678911,
             "numero": 201,
-            "ocupado": false
+            "ocupado": true
         },
         {
             "morador_cpf": 44455566677,
