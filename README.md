@@ -51,7 +51,7 @@ Além disso, os dados dos usuários são armazenados em arquivos JSON dentro da 
 Compile o projeto utilizando um compilador C++:
 
 ```sh
- g++ -o sistema main.cpp -std=c++11
+ g++ main.cpp classes/Manager.cpp classes/Resident.cpp classes/User.cpp classes/funcoes_json.cpp classes/Sistema.cpp classes/ValidacaoInputs.cpp -o main -std=c++20
 ```
 
 ### Execução
@@ -59,7 +59,7 @@ Compile o projeto utilizando um compilador C++:
 Após a compilação, execute o programa com:
 
 ```sh
- ./sistema
+ ./main
 ```
 
 ## Login
@@ -81,16 +81,6 @@ O sistema inicia solicitando o login do usuário. Caso seja um gestor ou morador
 ├── json.hpp  # Biblioteca para manipulação de JSON
 └── README.md  # Este documento
 ```
-
-## Melhorias Futuras
-
-- Implementar interface gráfica para facilitar o uso.
-- Adicionar autenticação mais segura (hash de senhas).
-- Criar uma API para integração com outros sistemas.
-
-## Contribuições
-
-Sinta-se à vontade para contribuir com melhorias e novas funcionalidades! Basta abrir um pull request no repositório.
 
 ---
 
