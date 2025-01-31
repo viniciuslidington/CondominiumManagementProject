@@ -17,6 +17,16 @@
             "senha": "teste1",
             "tipo": "morador",
             "unidade": 201
+        },
+        {
+            "cpf": 12345678911,
+            "email": "email",
+            "nome": "teste2",
+            "pagamento_em_dia": true,
+            "phone": "81996823512",
+            "senha": "teste2",
+            "tipo": "morador",
+            "unidade": 201
         }
     ]
 }
