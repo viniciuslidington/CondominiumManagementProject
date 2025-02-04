@@ -118,7 +118,7 @@ int main() {
             if (cin.fail()) {
                 cin.clear(); // Limpa os erros do buffer
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignora entradas inválidas
-                cout << "Opção inválida. Por favor, digite um número entre 1 e 3.\n";
+                cout << "Opção inválida. Por favor, digite um número entre 1 e 4.\n";
                 continue;
             }
 
@@ -158,7 +158,7 @@ int main() {
                             cout << "Saindo do Hub Moradores/Trabalhadores...\n";
                             break; // Volta ao menu do gestor
                         default:
-                            cout << "Opção inválida. Por favor, digite um número entre 1 e 5.\n";
+                            cout << "Opção inválida. Por favor, digite um número entre 1 e 6.\n";
                             break;
                     }
                     break;
@@ -218,7 +218,7 @@ int main() {
                     cout << "Saindo do Portal\n";
                     return 0; // Sai do menu do gestor
                 default:
-                    cout << "Opção inválida. Por favor, digite um número entre 1 e 3.\n";
+                    cout << "Opção inválida. Por favor, digite um número entre 1 e 4.\n";
                     break;
             }
         }
@@ -270,7 +270,7 @@ int main() {
                 default:
                     cout << "\n===================================\n";
                     cout << "|| Opção inválida. Por favor,    ||\n";
-                    cout << "|| digite um número entre 1 e 7. ||\n";
+                    cout << "|| digite um número entre 1 e 8. ||\n";
                     cout << "===================================\n";
                     break;
             }
