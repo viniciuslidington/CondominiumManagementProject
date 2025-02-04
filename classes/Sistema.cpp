@@ -75,9 +75,9 @@ void Sistema::removerUsuario(const long& cpf, json& usuariosJson){
     if (usuarioEncontrado) {
         // Salvar os JSONs atualizados nos arquivos
         salvarArquivo(caminhoUnidades, unidadesJson);
-        std::cout << "Usuário removido com sucesso!" << std::endl;
+        
     } else {
-        std::cout << "Usuário com o CPF " << cpf << " não foi encontrado." << std::endl;
+        
     }
 }
 // Função para atualizar os pagamentos dos moradores
@@ -93,7 +93,7 @@ void Sistema::atualizarPagamentos() {
 
     // Verifica se já foi atualizado este mês
     if (!precisaAtualizar(sistemaJson)) {
-        std::cout << "Os pagamentos já foram atualizados neste mês. Nenhuma alteração foi feita." << std::endl;
+        
         return;
     }
 
@@ -138,5 +138,5 @@ void Sistema::atualizarPagamentos() {
     // Salva no arquivo
     salvarArquivo(caminhoUsuarios, usuariosJson);
     salvarArquivo(caminhoSistema, sistemaJson);
-    std::cout << "Pagamentos dos moradores foram atualizados com sucesso!" << std::endl;
+    
 }

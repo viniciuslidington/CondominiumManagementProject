@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "json.hpp" // Inclua o arquivo json.hpp no seu projeto
+#include "json.hpp" // Incluir o arquivo json.hpp 
 #include "classes/Manager.hpp"
 #include "classes/Resident.hpp"
 #include "classes/Sistema.hpp"

@@ -8,14 +8,17 @@ using namespace std;
 
 // Declaração da classe User
 class User {
+
+private:// Variáveis membro privadas
+string user_password;
+long user_cpf;
+
 protected:
-    // Variáveis membro privadas
+    // Variáveis membro protegidas
     string user_name;
     string user_email;
     string user_phone;
     string user_type;
-    string user_password;
-    long user_cpf;
 
 public:
     // Construtor
