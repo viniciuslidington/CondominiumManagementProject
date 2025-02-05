@@ -1,1 +1,96 @@
-
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gerenciamento de Condomínios</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Gerenciamento de Condomínios</h1>
+        <p>Este projeto é um sistema de gerenciamento de condomínios desenvolvido em C++. Ele permite que gestores e moradores interajam com diversas funcionalidades relacionadas à administração do condomínio.</p>
+    </header>
+    
+    <button onclick="window.location.href='https://github.com/viniciuslidington/CondominiumManagementProject/tree/main'">Ir para a página do projeto</button>
+    
+    <section id="funcionalidades">
+        <h2>Funcionalidades Principais</h2>
+        <h3>Para Gestores</h3>
+        <ul>
+            <li>Gerenciar moradores e trabalhadores</li>
+            <li>Adicionar/Remover Moradores</li>
+            <li>Adicionar/Remover Trabalhadores</li>
+            <li>Ver feedbacks dos moradores</li>
+            <li>Gerenciar ações do condomínio</li>
+            <li>Adicionar e visualizar avisos</li>
+            <li>Reservar áreas comuns</li>
+            <li>Registrar e visualizar serviços</li>
+            <li>Visualizar histórico de atividades</li>
+            <li>Exibir informações gerais do condomínio</li>
+        </ul>
+        <h3>Para Moradores</h3>
+        <ul>
+            <li>Reservar áreas comuns</li>
+            <li>Enviar feedbacks ou sugestões</li>
+            <li>Visualizar regras do condomínio</li>
+            <li>Ver lista de funcionários</li>
+            <li>Acessar avisos</li>
+            <li>Realizar pagamentos</li>
+            <li>Exibir informações pessoais</li>
+        </ul>
+    </section>
+    
+    <section id="estrutura">
+        <h2>Estrutura do Código</h2>
+        <p>O código é estruturado utilizando a programação orientada a objetos (POO) e conta com as seguintes classes principais:</p>
+        <ul>
+            <li><strong>Sistema:</strong> Responsável por gerenciar o fluxo geral do sistema.</li>
+            <li><strong>User (Classe Base):</strong> Classe genérica para usuários.</li>
+            <li><strong>Manager (Herdeira de User):</strong> Representa o gestor do condomínio.</li>
+            <li><strong>Resident (Herdeira de User):</strong> Representa um morador do condomínio.</li>
+            <li><strong>ValidacaoInputs:</strong> Responsável por validar entradas do usuário.</li>
+        </ul>
+        <p>Além disso, os dados dos usuários são armazenados em arquivos JSON dentro da pasta <code>bdjson/usuarios.json</code>.</p>
+    </section>
+    
+    <section id="execucao">
+        <h2>Como Executar o Sistema</h2>
+        <h3>Pré-requisitos</h3>
+        <ul>
+            <li>Compilador C++ compatível com C++11 ou superior.</li>
+            <li>Biblioteca nlohmann/json para manipulação de arquivos JSON.</li>
+        </ul>
+        <h3>Compilação</h3>
+        <pre><code>g++ main.cpp classes/Manager.cpp classes/Resident.cpp classes/User.cpp classes/funcoes_json.cpp classes/Sistema.cpp classes/ValidacaoInputs.cpp -o main -std=c++20</code></pre>
+        <h3>Execução</h3>
+        <pre><code>./main</code></pre>
+        <h3>Login</h3>
+        <p>O sistema inicia solicitando o login do usuário. Caso seja um gestor ou morador válido, ele será redirecionado ao menu correspondente. Se as credenciais forem inválidas, o login será solicitado novamente.</p>
+    </section>
+    
+    <section id="estrutura-pastas">
+        <h2>Estrutura de Pastas</h2>
+        <pre><code>/
+├── main.cpp  # Código principal
+├── classes/
+│   ├── Manager.hpp
+│   ├── Resident.hpp
+│   ├── Sistema.hpp
+│   ├── ValidacaoInputs.hpp
+├── bdjson/
+│   ├── usuarios.json  # Base de dados dos usuários
+├── json.hpp  # Biblioteca para manipulação de JSON
+└── README.md  # Este documento</code></pre>
+    </section>
+    
+    <section id="creditos">
+        <h2>Desenvolvedores</h2>
+        <p>Desenvolvido por Vinícius Lidington & Marcelo Melo</p>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 VM projects</p>
+    </footer>
+</body>
+</html>
